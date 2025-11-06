@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE_URL } from '../site.config.mjs';
 ---
 
 <html lang="en">
@@ -10,18 +11,18 @@ import '../styles/global.css';
     <meta name="theme-color" content="#FFF9E9" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="canonical" href="https://ayazqureshi.vercel.app/" />
+    <link rel="canonical" href={SITE_URL + '/'} />
     <meta property="og:title" content="Ayaz Qureshi – Android & Flutter Developer" />
     <meta property="og:description" content="I craft mobile experiences that scale beautifully." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ayazqureshi.vercel.app/" />
-    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:url" content={SITE_URL + '/'} />
+    <meta property="og:image" content={SITE_URL + '/og-image.svg'} />
     <meta property="og:site_name" content="Ayaz Qureshi Portfolio" />
     <meta property="og:image:alt" content="Ayaz Qureshi portfolio preview" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ayaz Qureshi – Android & Flutter Developer" />
     <meta name="twitter:description" content="I craft mobile experiences that scale beautifully." />
-    <meta name="twitter:image" content="/favicon.svg" />
+    <meta name="twitter:image" content={SITE_URL + '/favicon.svg'} />
     <meta name="author" content="Ayaz Qureshi" />
     <meta name="application-name" content="Ayaz Qureshi Portfolio" />
     <meta name="robots" content="index,follow" />
@@ -32,20 +33,18 @@ import '../styles/global.css';
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDz8Z11lFQ.woff2" type="font/woff2" crossorigin />
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FAm8S66w7cizQ.woff2" type="font/woff2" crossorigin />
     <title>Ayaz Qureshi – Android & Flutter Developer</title>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ayaz Qureshi",
-        "jobTitle": "Android & Flutter Developer",
-        "url": "https://ayazqureshi.vercel.app/",
-        "sameAs": [
-          "https://www.youtube.com/@ayazqureshi",
-          "https://medium.com/@ayazqureshi",
-          "https://www.linkedin.com/in/ayazqureshi/"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ayaz Qureshi",
+      "jobTitle": "Android & Flutter Developer",
+      "url": SITE_URL + '/',
+      "sameAs": [
+        "https://www.youtube.com/insideandroid",
+        "https://qureshi-ayaz29.medium.com/",
+        "https://www.linkedin.com/in/ayazqureshi/"
+      ]
+    })}></script>
   </head>
   <body class="bg-offwhite font-poppins w-screen">
     <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-indigo-600 text-white px-4 py-2 rounded">Skip to content</a>

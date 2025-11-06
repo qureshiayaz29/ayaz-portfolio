@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE_URL } from '../site.config.mjs';
 ---
 <html lang="en">
   <head>
@@ -7,6 +8,13 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>Page Not Found – Ayaz Qureshi</title>
     <meta name="robots" content="noindex" />
+    <link rel="canonical" href={SITE_URL + '/'} />
+    <meta property="og:title" content="404 – Ayaz Qureshi" />
+    <meta property="og:description" content="Page not found" />
+    <meta property="og:url" content={SITE_URL + '/'} />
+    <meta property="og:image" content={SITE_URL + '/og-image.svg'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={SITE_URL + '/favicon.svg'} />
   </head>
   <body class="bg-offwhite font-poppins flex items-center justify-center min-h-screen p-6 text-center">
     <div class="max-w-md">
@@ -16,4 +24,3 @@ import '../styles/global.css';
     </div>
   </body>
 </html>
-

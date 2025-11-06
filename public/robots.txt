@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://ayazqureshi.vercel.app/sitemap.xml
-
+Sitemap: https://ayazqureshi.com/sitemap.xml
