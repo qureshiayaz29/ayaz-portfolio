@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Nunito:wght@400;700&family=Poppins:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --safe-top: env(safe-area-inset-top, 0); --safe-bottom: env(safe-area-inset-bottom, 0); }
+
+body {
+  font-family: 'Poppins', 'Nunito', 'Inter', sans-serif;
+  background: #FAFAF7;
+  color: #22223b;
+  margin: 0;
+  padding: var(--safe-top) 0 var(--safe-bottom);
+  height: 100svh; /* small viewport height for mobile chrome */
+  min-height: 100dvh; /* dynamic viewport height */
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Improve focus outline visibility */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid #6366F1; outline-offset: 3px; }
+
+/* Utility to ensure sections shrink nicely */
+.section-heading { @apply font-bold text-[#22223b]; }
