@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE_URL } from '../site.config.mjs';
+import Analytics from '@vercel/analytics/astro';
 ---
 
 <html lang="en">
@@ -45,6 +46,7 @@ import { SITE_URL } from '../site.config.mjs';
         "https://www.linkedin.com/in/ayazqureshi/"
       ]
     })}></script>
+    <Analytics />
   </head>
   <body class="bg-offwhite font-poppins w-screen">
     <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-indigo-600 text-white px-4 py-2 rounded">Skip to content</a>
