@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE_URL } from '../site.config.mjs';
+import Analytics from '@vercel/analytics/astro';
 ---
 <html lang="en">
   <head>
@@ -15,6 +16,7 @@ import { SITE_URL } from '../site.config.mjs';
     <meta property="og:image" content={SITE_URL + '/og-image.svg'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={SITE_URL + '/favicon.svg'} />
+    <Analytics />
   </head>
   <body class="bg-offwhite font-poppins flex items-center justify-center min-h-screen p-6 text-center">
     <div class="max-w-md">
