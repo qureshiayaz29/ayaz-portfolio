@@ -40,8 +40,8 @@ export const projects: Project[] = [
         cat: "ai",
         catLabel: "AI + Automation",
         status: "live",
-        desc: "AI-powered meal recommendation system. Phase 2 live — built for a client.",
-        what: "Personalised meal suggestions based on preferences and dietary constraints. Client project.",
+        desc: "AI-powered meal recommendation system. Phase 2 live — built for personal usage.",
+        what: "Personalised meal suggestions based on preferences and dietary constraints. Personal project.",
         stack: "AI APIs · Web"
     },
 
