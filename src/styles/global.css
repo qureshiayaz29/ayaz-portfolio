@@ -4,24 +4,125 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --safe-top: env(safe-area-inset-top, 0); --safe-bottom: env(safe-area-inset-bottom, 0); }
+:root {
+  --safe-top: env(safe-area-inset-top, 0);
+  --safe-bottom: env(safe-area-inset-bottom, 0);
+  /* Dark palette tokens */
+  --bg: #0c0c0c;
+  --bg-card: #161616;
+  --bg-tag: #1f1f1f;
+  --border: #242424;
+  --border-hover: #333333;
+  --text-primary: #f0f0f0;
+  --text-secondary: #d4d4d4;
+  --text-muted: #737373;
+  --text-faint: #525252;
+  --accent: #1D9E75;
+}
 
 body {
   font-family: 'Poppins', 'Nunito', 'Inter', sans-serif;
-  background: #FAFAF7;
-  color: #22223b;
+  background: var(--bg);
+  color: var(--text-secondary);
   margin: 0;
   padding: var(--safe-top) 0 var(--safe-bottom);
-  height: 100svh; /* small viewport height for mobile chrome */
-  min-height: 100dvh; /* dynamic viewport height */
+  height: 100svh;
+  min-height: 100dvh;
   width: 100vw;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
 }
 
-/* Improve focus outline visibility */
+/* Focus */
 :focus { outline: none; }
-:focus-visible { outline: 2px solid #6366F1; outline-offset: 3px; }
+:focus-visible { outline: 2px solid #1D9E75; outline-offset: 3px; }
 
-/* Utility to ensure sections shrink nicely */
-.section-heading { @apply font-bold text-[#22223b]; }
+/* Legacy utility */
+.section-heading { @apply font-bold; color: var(--text-primary); }
+
+/* ── Floating orbs ────────────────────────────────────────────── */
+.orb-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  pointer-events: none;
+}
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: #1D9E75;
+  opacity: 0.07;
+  top: -180px;
+  left: -120px;
+  animation: orb-float-1 24s ease-in-out infinite;
+}
+.orb-2 {
+  width: 420px;
+  height: 420px;
+  background: #1D9E75;
+  opacity: 0.05;
+  bottom: 60px;
+  right: -100px;
+  animation: orb-float-2 30s ease-in-out infinite;
+}
+.orb-3 {
+  width: 280px;
+  height: 280px;
+  background: #6366f1;
+  opacity: 0.045;
+  top: 42%;
+  left: 58%;
+  animation: orb-float-3 38s ease-in-out infinite;
+}
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(70px, -55px) scale(1.07); }
+  66%       { transform: translate(-40px, 65px) scale(0.95); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-90px, -70px) scale(1.1); }
+}
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0); }
+  40%       { transform: translate(55px, 95px); }
+  70%       { transform: translate(-65px, 35px); }
+}
+
+/* ── Expandable cards ─────────────────────────────────────────── */
+.expandable-card .detail { display: none; }
+.expandable-card.expanded .detail { display: block; }
+.expandable-card .expand-icon::before { content: '+'; }
+.expandable-card.expanded .expand-icon::before { content: '×'; }
+.expandable-card .link-in-card:hover { text-decoration: underline; }
+
+/* ── Filter buttons ───────────────────────────────────────────── */
+.filter-btn {
+  cursor: pointer;
+  border: 1px solid var(--border-hover);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.filter-btn.active {
+  background: #e5e5e5;
+  color: #0c0c0c;
+  border-color: #e5e5e5;
+}
+.filter-btn:not(.active):hover {
+  background: #1a1a1a;
+  color: #a3a3a3;
+  border-color: #3a3a3a;
+}

@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+
+const filterTabs = [
+  { label: 'All',              value: 'all' },
+  { label: 'Developer Tools',  value: 'dev-tools' },
+  { label: 'Consumer Apps',    value: 'consumer' },
+  { label: 'AI + Automation',  value: 'ai' },
+  { label: 'Startup Ideas',    value: 'startup' },
+];
+---
+
+<Base
+  title="Projects — Ayaz Qureshi"
+  description="A running log of tools, apps, and ideas by Ayaz Qureshi."
+  canonical="/projects"
+>
+  <Nav />
+
+  <main id="content" class="max-w-3xl mx-auto px-6">
+
+    <!-- ── Page header ──────────────────────────────────────────────── -->
+    <section class="pt-14 pb-10">
+      <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-bottom:14px;">
+        Everything I've built, am building, or am thinking about
+      </p>
+      <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.2rem,5vw,3.2rem); line-height:1.05; color:#f0f0f0;">
+        Projects
+      </h1>
+      <p style="font-family:'Geist',sans-serif; font-size:16px; color:#737373; max-width:52ch; line-height:1.75; margin-top:16px;">
+        A running log of tools, apps, and ideas — across developer tooling, consumer apps,
+        AI automation, and startup bets.
+      </p>
+    </section>
+
+    <!-- ── Sticky filter bar ────────────────────────────────────────── -->
+    <div class="filter-bar" style="position:sticky; top:57px; z-index:5; background:#0c0c0c; padding:12px 0; border-bottom:1px solid #1f1f1f; margin-bottom:20px;">
+      <div class="flex flex-wrap gap-2">
+        {filterTabs.map((tab, i) => (
+          <button
+            class={`filter-btn proj-filter-btn${i === 0 ? ' active' : ''}`}
+            data-filter={tab.value}
+          >{tab.label}</button>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── Project card grid ─────────────────────────────────────────── -->
+    <div id="projects-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; padding-bottom:80px;">
+      {projects.map(p => (
+        <ProjectCard
+          name={p.name}
+          cat={p.cat}
+          catLabel={p.catLabel}
+          status={p.status}
+          desc={p.desc}
+          what={p.what}
+          stack={p.stack}
+          next={p.next}
+          link={p.link}
+          featured={false}
+        />
+      ))}
+    </div>
+
+  </main>
+
+  <script>
+    // Project filter
+    const projFilterBtns = document.querySelectorAll<HTMLButtonElement>('.proj-filter-btn');
+    projFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.filter ?? 'all';
+        document.querySelectorAll<HTMLElement>('.proj-card').forEach(card => {
+          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+        });
+        projFilterBtns.forEach(b => b.classList.toggle('active', b === btn));
+      });
+    });
+
+    // Expand / collapse
+    document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
+      card.addEventListener('click', e => {
+        if ((e.target as Element).closest('a')) return;
+        card.classList.toggle('expanded');
+      });
+    });
+  </script>
+</Base>

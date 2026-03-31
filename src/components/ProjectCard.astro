@@ -1,0 +1,85 @@
+---
+import type { ProjectStatus } from '../data/projects';
+
+interface Props {
+  name: string;
+  cat: string;
+  catLabel: string;
+  status: ProjectStatus;
+  desc: string;
+  what: string;
+  stack: string;
+  next?: string;
+  link?: string;
+  featured?: boolean;
+}
+
+const { name, cat, catLabel, status, desc, what, stack, next, link, featured = false } = Astro.props;
+
+const badge: Record<ProjectStatus, { bg: string; color: string; label: string }> = {
+  live:     { bg: '#0a2e1e', color: '#4ade80', label: 'live' },
+  progress: { bg: '#2c1a00', color: '#fb923c', label: 'in progress' },
+  idea:     { bg: '#1f1f1f', color: '#737373', label: 'idea' },
+};
+const b = badge[status];
+const stackTags = stack.split('·').map(s => s.trim()).filter(Boolean);
+---
+
+{featured ? (
+  <a
+    href="/projects"
+    style="display:block; border:1px solid #242424; border-radius:12px; padding:20px; background:#161616; text-decoration:none; transition:border-color 0.15s;"
+    onmouseover="this.style.borderColor='#333'"
+    onmouseout="this.style.borderColor='#242424'"
+  >
+    <div class="flex items-start justify-between gap-3">
+      <span style="font-family:'Geist',sans-serif; font-size:15px; font-weight:500; color:#f0f0f0;">{name}</span>
+      <span style={`background:${b.bg}; color:${b.color}; font-family:'DM Mono',monospace; font-size:11px; padding:3px 8px; border-radius:4px; white-space:nowrap; flex-shrink:0;`}>{b.label}</span>
+    </div>
+    <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-top:5px;">{catLabel}</p>
+    <p style="font-family:'Geist',sans-serif; font-size:14px; color:#737373; margin-top:10px; line-height:1.65;">{desc}</p>
+    <div class="flex flex-wrap gap-2 mt-3">
+      {stackTags.map(tag => (
+        <span style="font-family:'DM Mono',monospace; font-size:12px; color:#525252;">{tag}</span>
+      ))}
+    </div>
+  </a>
+) : (
+  <div
+    class="proj-card expandable-card"
+    data-cat={cat}
+    style="border:1px solid #242424; border-radius:12px; padding:20px; background:#161616; cursor:pointer; transition:border-color 0.15s;"
+    onmouseover="this.style.borderColor='#333'"
+    onmouseout="this.style.borderColor='#242424'"
+  >
+    <div class="flex items-start justify-between gap-3">
+      <span style="font-family:'Geist',sans-serif; font-size:15px; font-weight:500; color:#f0f0f0; flex:1; min-width:0;">{name}</span>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span style={`background:${b.bg}; color:${b.color}; font-family:'DM Mono',monospace; font-size:11px; padding:3px 8px; border-radius:4px; white-space:nowrap;`}>{b.label}</span>
+        <span class="expand-icon" style="font-family:'DM Mono',monospace; font-size:18px; color:#525252; line-height:1; width:20px; text-align:center; flex-shrink:0;"></span>
+      </div>
+    </div>
+    <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-top:5px;">{catLabel}</p>
+    <p style="font-family:'Geist',sans-serif; font-size:14px; color:#737373; margin-top:10px; line-height:1.65;">{desc}</p>
+    <div class="flex flex-wrap gap-2 mt-3">
+      {stackTags.map(tag => (
+        <span style="font-family:'DM Mono',monospace; font-size:12px; color:#525252;">{tag}</span>
+      ))}
+    </div>
+    <div class="detail" style="margin-top:18px; padding-top:18px; border-top:1px solid #222;">
+      <p style="font-family:'Geist',sans-serif; font-size:14px; color:#a3a3a3; line-height:1.65;">{what}</p>
+      {next && (
+        <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-top:12px;">next → {next}</p>
+      )}
+      {link && (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-in-card"
+          style="display:inline-block; margin-top:14px; font-family:'DM Mono',monospace; font-size:13px; color:#1D9E75; text-decoration:none;"
+        >link →</a>
+      )}
+    </div>
+  </div>
+)}
