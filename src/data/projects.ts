@@ -14,7 +14,7 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        name: "Antigravity Toolkit",
+        name: "JSON parser and developer toolkit",
         cat: "dev-tools",
         catLabel: "Developer Tools",
         status: "live",
