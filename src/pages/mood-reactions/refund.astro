@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/MoodReactions.astro';
+import { MR } from '../../data/moodReactions';
+---
+
+<Layout
+  title="Refund Policy · Mood Reactions"
+  description={`${MR.refundDays}-day money-back guarantee for Mood Reactions licenses.`}
+  canonical="/mood-reactions/refund"
+>
+  <article class="mr-prose">
+    <h1>Refund Policy</h1>
+    <p class="updated">Last updated: {MR.lastUpdated}</p>
+
+    <div class="callout">
+      <strong>{MR.refundDays}-day money-back guarantee.</strong> If Mood Reactions isn't for you, email us within
+      {MR.refundDays} days of being charged and you'll get a full refund. No questions asked.
+    </div>
+
+    <h2>When you can get a refund</h2>
+    <ul>
+      <li><strong>First purchase:</strong> full refund if you ask within {MR.refundDays} days of buying.</li>
+      <li><strong>Yearly renewal:</strong> full refund if you ask within {MR.refundDays} days of the renewal charge, in case you forgot to cancel.</li>
+      <li>After {MR.refundDays} days, payments aren't refundable, but you can cancel any time so you won't be charged again.</li>
+    </ul>
+
+    <h2>How to ask</h2>
+    <p>
+      Email <a href={`mailto:${MR.supportEmail}?subject=Mood%20Reactions%20refund`}>{MR.supportEmail}</a> from the address you
+      bought with, or include that address and your order ID from the receipt. That's it; you don't need to give a reason.
+    </p>
+
+    <h2>What happens next</h2>
+    <ul>
+      <li>We process refund requests within 2 business days.</li>
+      <li>The money goes back to your original payment method through Dodo Payments, our merchant of record. Banks usually show it within 5 to 10 business days.</li>
+      <li>Your subscription is cancelled and your license key stops working, usually within 24 hours.</li>
+    </ul>
+
+    <h2>Cancelling without a refund</h2>
+    <p>
+      If you just want to stop renewing, cancel from the link in your receipt or by email. Your license keeps working
+      until the end of the year you paid for. See the <a href="/mood-reactions/terms">Terms</a>.
+    </p>
+
+    <h2>Problems before refunds</h2>
+    <p>
+      If something isn't working, a site that doesn't trigger or a GIF that won't load, write to us first. We're often
+      able to fix it. The refund is still there if we can't.
+    </p>
+
+    <h2>Contact</h2>
+    <p><a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a></p>
+  </article>
+</Layout>

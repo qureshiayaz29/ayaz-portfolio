@@ -1,0 +1,68 @@
+---
+// Shared shell for /mood-reactions/* pages: site nav, product sub-nav, and a seller footer.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import { MR } from '../data/moodReactions';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+}
+const { title, description, canonical } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '');
+const links = [
+  { href: '/mood-reactions', label: 'Overview' },
+  { href: '/mood-reactions/privacy', label: 'Privacy' },
+  { href: '/mood-reactions/terms', label: 'Terms' },
+  { href: '/mood-reactions/refund', label: 'Refunds' },
+];
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Nav />
+  <div class="mr-subnav">
+    <div class="max-w-3xl mx-auto px-6 flex items-center gap-1 overflow-x-auto">
+      <span class="mr-brand">Mood Reactions</span>
+      {links.map((l) => (
+        <a href={l.href} class:list={['mr-tab', { active: path === l.href }]} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </div>
+  </div>
+
+  <main id="content" class="max-w-3xl mx-auto px-6 pt-12 pb-20">
+    <slot />
+  </main>
+
+  <footer class="mr-footer">
+    <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+      <p>Sold by {MR.seller}, {MR.sellerCountry}. Payments by Dodo Payments, merchant of record.</p>
+      <p><a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a></p>
+    </div>
+  </footer>
+</Base>
+
+<style is:global>
+  .mr-subnav { border-bottom: 1px solid #1f1f1f; background: rgba(12,12,12,0.7); }
+  .mr-brand { font-family: 'DM Mono', monospace; font-size: 12px; color: #1D9E75; letter-spacing: .06em; text-transform: uppercase; margin-right: 12px; white-space: nowrap; }
+  @media (max-width: 480px) { .mr-brand { display: none; } }
+  .mr-tab { font-family: 'Geist', sans-serif; font-size: 14px; color: #737373; text-decoration: none; padding: 12px 10px; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s; }
+  .mr-tab:hover { color: #d4d4d4; }
+  .mr-tab.active { color: #f0f0f0; border-bottom-color: #1D9E75; }
+  .mr-footer { border-top: 1px solid #1f1f1f; font-family: 'Geist', sans-serif; font-size: 13px; color: #737373; }
+  .mr-footer a { color: #a3a3a3; }
+  .mr-footer a:hover { color: #1D9E75; }
+
+  /* Long-form policy text */
+  .mr-prose { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 1.7; color: #d4d4d4; }
+  .mr-prose h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(36px, 6vw, 48px); line-height: 1.1; color: #f0f0f0; margin: 0 0 8px; }
+  .mr-prose .updated { font-family: 'DM Mono', monospace; font-size: 12px; color: #737373; margin: 0 0 36px; }
+  .mr-prose h2 { font-family: 'Geist', sans-serif; font-weight: 500; font-size: 19px; color: #f0f0f0; margin: 40px 0 10px; }
+  .mr-prose p { margin: 0 0 14px; }
+  .mr-prose ul { margin: 0 0 14px; padding-left: 20px; list-style: disc; }
+  .mr-prose li { margin: 4px 0; }
+  .mr-prose li::marker { color: #1D9E75; }
+  .mr-prose a { color: #1D9E75; text-underline-offset: 3px; }
+  .mr-prose strong { color: #f0f0f0; font-weight: 500; }
+  .mr-prose .callout { border: 1px solid #242424; background: #161616; border-radius: 14px; padding: 16px 18px; margin: 0 0 28px; }
+</style>

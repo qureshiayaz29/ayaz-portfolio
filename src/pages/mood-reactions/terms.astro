@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/MoodReactions.astro';
+import { MR } from '../../data/moodReactions';
+---
+
+<Layout
+  title="Terms of Service · Mood Reactions"
+  description="The terms for buying and using the Mood Reactions Chrome extension."
+  canonical="/mood-reactions/terms"
+>
+  <article class="mr-prose">
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated: {MR.lastUpdated}</p>
+
+    <p>
+      These terms apply to the Mood Reactions Chrome extension and its license ("the Service"), provided by
+      {MR.seller}, {MR.sellerCountry} ("we", "us"). By buying a license or using the Service, you agree to them.
+    </p>
+
+    <h2>1. What you get</h2>
+    <p>
+      A license lets you use Mood Reactions on up to {MR.activations} browsers at a time for as long as your subscription is
+      active. The license is personal to you; please don't share, resell or publish your key.
+    </p>
+
+    <h2>2. Price, billing and renewal</h2>
+    <ul>
+      <li>The license is a yearly subscription: {MR.priceIndia}/year in India and {MR.priceIntl}/year elsewhere, taxes included, unless a different price is shown at checkout.</li>
+      <li>You're charged up front, and the subscription <strong>renews automatically every year</strong> until you cancel.</li>
+      <li>Payments are processed by Dodo Payments as merchant of record, and their checkout terms also apply to your purchase.</li>
+      <li>If we change the price, the new price applies from your next renewal, and we'll tell you in advance.</li>
+    </ul>
+
+    <h2>3. Cancelling</h2>
+    <p>
+      You can cancel any time from the link in your receipt or by emailing
+      <a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a>. The license stays active until the end of the year you've
+      paid for, then stops.
+    </p>
+
+    <h2>4. Refunds</h2>
+    <p>
+      You can get a full refund within {MR.refundDays} days of a purchase or renewal. See the
+      <a href="/mood-reactions/refund">Refund Policy</a>.
+    </p>
+
+    <h2>5. Fair use</h2>
+    <p>Please don't:</p>
+    <ul>
+      <li>try to bypass the license check or use the Service without a valid license,</li>
+      <li>scrape, overload or reverse-engineer our server or its API,</li>
+      <li>use the Service to break any law or anyone else's terms.</li>
+    </ul>
+    <p>We may suspend a license that's being abused or shared, after telling you why where we reasonably can.</p>
+
+    <h2>6. GIFs and third-party content</h2>
+    <p>
+      Reaction GIFs come from GIPHY and belong to their respective owners. We filter for general-audience content, but we
+      don't create or control the GIFs and can't guarantee every one will suit every situation. You can turn reactions off
+      for any site.
+    </p>
+
+    <h2>7. How detection works, and its limits</h2>
+    <p>
+      The extension spots events from what a page says and does. It will miss some events and may occasionally react when
+      it shouldn't. It's a fun add-on, not a payment or security tool. Never rely on it to confirm that a payment or
+      login actually happened.
+    </p>
+
+    <h2>8. Changes and availability</h2>
+    <p>
+      We may improve or change the Service over time. If we ever shut it down, we'll give at least 30 days' notice and
+      refund the unused part of any active yearly license.
+    </p>
+
+    <h2>9. Disclaimer and liability</h2>
+    <p>
+      The Service is provided "as is", without warranties of any kind, to the extent the law allows. To the extent the
+      law allows, our total liability for any claim relating to the Service is limited to the amount you paid us in the
+      12 months before the claim. Nothing in these terms limits rights you have under consumer law that can't be
+      excluded.
+    </p>
+
+    <h2>10. Privacy</h2>
+    <p>Our <a href="/mood-reactions/privacy">Privacy Policy</a> explains what data the Service handles.</p>
+
+    <h2>11. Governing law</h2>
+    <p>
+      These terms are governed by the laws of India. If you live elsewhere, you keep any protections your local consumer
+      law gives you.
+    </p>
+
+    <h2>12. Contact</h2>
+    <p><a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a></p>
+  </article>
+</Layout>

@@ -1,0 +1,193 @@
+---
+import Layout from '../../layouts/MoodReactions.astro';
+import { MR, MOODS } from '../../data/moodReactions';
+
+const faqs = [
+  {
+    q: 'Does it read my passwords or what I type?',
+    a: 'No. It looks at short on-screen messages (like "Payment successful"), the page address, and whether a login form was submitted. It never reads what you type, and none of it leaves your browser.',
+  },
+  {
+    q: 'Which websites does it work on?',
+    a: 'Most shopping, banking, SaaS and login pages. Detection is based on what the page says and does, so the odd site with unusual wording may not trigger. You can switch it off for any site with one click.',
+  },
+  {
+    q: 'Can I use it on more than one computer?',
+    a: `Yes. One license works on up to ${MR.activations} browsers. You can deactivate one from the activation page to free a slot.`,
+  },
+  {
+    q: 'How do I cancel?',
+    a: `Your license renews yearly. Cancel any time and it stays active until the end of the year you paid for. Email ${MR.supportEmail} or use the link in your receipt.`,
+  },
+  {
+    q: 'What if I don’t like it?',
+    a: `Email us within ${MR.refundDays} days of buying for a full refund. No questions asked.`,
+  },
+];
+---
+
+<Layout
+  title="Mood Reactions: reaction GIFs for your browser"
+  description="A Chrome extension that pops up a funny or dramatic GIF when your payment goes through, your password is wrong, or a site breaks."
+  canonical="/mood-reactions"
+>
+  <!-- Hero -->
+  <section class="grid md:grid-cols-[1.1fr_1fr] gap-10 items-center">
+    <div>
+      <p class="font-dm-mono text-xs tracking-widest uppercase" style="color:#1D9E75;">Chrome extension</p>
+      <h1 class="font-instrument" style="font-size:clamp(40px,7vw,60px); line-height:1.02; color:#f0f0f0; margin:12px 0 18px;">{MR.tagline}</h1>
+      <p class="font-geist" style="font-size:18px; line-height:1.6; color:#a3a3a3; max-width:34ch;">
+        Payment went through? Wrong password again? A GIF pops up in the corner for a few seconds, then gets out of your way.
+      </p>
+      <div class="flex flex-wrap items-center gap-3 mt-8">
+        {MR.chromeStoreUrl ? (
+          <a class="mr-btn mr-btn-primary" href={MR.chromeStoreUrl} target="_blank" rel="noopener">Add to Chrome</a>
+        ) : (
+          <span class="mr-btn mr-btn-ghost" aria-disabled="true">Coming soon to the Chrome Web Store</span>
+        )}
+        <a class="mr-link" href="#pricing">{MR.priceIndia}/year in India · {MR.priceIntl} elsewhere</a>
+      </div>
+    </div>
+
+    <!-- Demo -->
+    <div class="mr-demo" aria-hidden="true">
+      <div class="mr-demo-bar"><span></span><span></span><span></span><em>shop.example/checkout</em></div>
+      <div class="mr-demo-body">
+        <div class="mr-demo-line w-2/3"></div>
+        <div class="mr-demo-line w-1/2"></div>
+        <div class="mr-demo-toast">✅ Payment successful</div>
+        <div class="mr-demo-card">
+          <div class="mr-demo-emoji">💸</div>
+          <div class="mr-demo-cap">Paisa gaya. Worth it though.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Moods -->
+  <section class="mt-20">
+    <h2 class="mr-h2">Five moods, zero setup</h2>
+    <div class="grid sm:grid-cols-2 gap-3 mt-6">
+      {MOODS.map((m) => (
+        <div class="mr-card" style={`--a:${m.accent}`}>
+          <div class="flex items-center gap-3">
+            <span class="mr-emoji">{m.emoji}</span>
+            <div>
+              <p class="mr-card-title">{m.name}</p>
+              <p class="mr-card-cap">“{m.caption}”</p>
+            </div>
+          </div>
+          <p class="mr-card-when">{m.when}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mr-note mt-4">Every reaction is a fresh GIF, powered by GIPHY.</p>
+  </section>
+
+  <!-- How it works -->
+  <section class="mt-20">
+    <h2 class="mr-h2">How it works</h2>
+    <ol class="mr-steps mt-6">
+      <li><strong>Install</strong> from the Chrome Web Store.</li>
+      <li><strong>Buy a yearly license.</strong> Your key arrives by email.</li>
+      <li><strong>Paste the key</strong> on the activation page and carry on browsing.</li>
+    </ol>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="mt-20">
+    <h2 class="mr-h2">Pricing</h2>
+    <div class="mr-price mt-6">
+      <div class="flex flex-wrap items-end gap-x-6 gap-y-2">
+        <p><span class="mr-amount">{MR.priceIndia}</span><span class="mr-per">/year in India</span></p>
+        <p><span class="mr-amount">{MR.priceIntl}</span><span class="mr-per">/year elsewhere</span></p>
+      </div>
+      <ul class="mr-included">
+        <li>All five moods, unlimited reactions</li>
+        <li>Use on up to {MR.activations} browsers</li>
+        <li>Turn it off for any site, choose how long reactions stay</li>
+        <li>Taxes included. Renews yearly, cancel any time</li>
+        <li>{MR.refundDays}-day money-back guarantee. <a href="/mood-reactions/refund">Refund policy</a></li>
+      </ul>
+      {MR.checkoutUrl ? (
+        <a class="mr-btn mr-btn-primary mt-6" href={MR.checkoutUrl} target="_blank" rel="noopener">Buy license</a>
+      ) : (
+        <p class="mr-note mt-6">Licenses go on sale when the extension launches on the Chrome Web Store.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Privacy summary -->
+  <section class="mt-20">
+    <h2 class="mr-h2">Privacy, in one paragraph</h2>
+    <p class="mr-body mt-4">
+      Page text and URLs are checked locally in your browser and never leave it. To fetch a GIF, only the mood name
+      (like <code>login_fail</code>) and a license token are sent to our server. No browsing history, no tracking,
+      no ads, nothing sold. <a class="mr-link" href="/mood-reactions/privacy">Full privacy policy</a>
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mt-20">
+    <h2 class="mr-h2">Questions</h2>
+    <div class="mt-6">
+      {faqs.map((f) => (
+        <details class="mr-faq">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .mr-h2 { font-family: 'Instrument Serif', serif; font-size: 32px; line-height: 1.1; color: #f0f0f0; font-weight: 400; }
+  .mr-body { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 1.7; color: #d4d4d4; }
+  .mr-body code { font-family: 'DM Mono', monospace; font-size: 13px; background: #1f1f1f; padding: 2px 6px; border-radius: 6px; color: #f0f0f0; }
+  .mr-note { font-family: 'Geist', sans-serif; font-size: 14px; color: #737373; }
+  .mr-link { font-family: 'Geist', sans-serif; font-size: 14px; color: #1D9E75; text-underline-offset: 3px; }
+  .mr-btn { display: inline-block; font-family: 'Geist', sans-serif; font-weight: 500; font-size: 15px; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
+  .mr-btn-primary { background: #1D9E75; color: #04130e; }
+  .mr-btn-primary:hover { filter: brightness(1.08); }
+  .mr-btn-ghost { border: 1px solid #333; color: #a3a3a3; }
+
+  .mr-demo { border: 1px solid #242424; border-radius: 16px; overflow: hidden; background: #111; box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+  .mr-demo-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid #1f1f1f; background: #161616; }
+  .mr-demo-bar span { width: 9px; height: 9px; border-radius: 50%; background: #333; }
+  .mr-demo-bar em { font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; color: #525252; margin-left: 8px; }
+  .mr-demo-body { position: relative; height: 230px; padding: 22px; }
+  .mr-demo-line { height: 10px; border-radius: 6px; background: #1f1f1f; margin-bottom: 12px; }
+  .mr-demo-toast { position: absolute; left: 22px; bottom: 22px; font-family: 'Geist', sans-serif; font-size: 13px; color: #d4d4d4; background: #161616; border: 1px solid #242424; border-radius: 10px; padding: 8px 12px; }
+  .mr-demo-card { position: absolute; top: 14px; right: 14px; width: 150px; border-radius: 12px; overflow: hidden; background: #0a0a0a; border: 2px solid #22c55e; box-shadow: 0 12px 28px rgba(0,0,0,.5); animation: mr-pop 3.4s ease-in-out infinite; }
+  .mr-demo-emoji { font-size: 50px; text-align: center; padding: 12px 0 2px; }
+  .mr-demo-cap { font-family: 'Geist', sans-serif; font-weight: 500; font-size: 12px; color: #fff; padding: 6px 10px 10px; }
+  @keyframes mr-pop { 0%,10% { opacity: 0; transform: translateY(-10px) scale(.95); } 18%,82% { opacity: 1; transform: none; } 92%,100% { opacity: 0; transform: translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) { .mr-demo-card { animation: none; } }
+
+  .mr-card { border: 1px solid #242424; background: #161616; border-radius: 14px; padding: 16px; border-left: 3px solid var(--a); }
+  .mr-emoji { font-size: 28px; line-height: 1; }
+  .mr-card-title { font-family: 'Geist', sans-serif; font-weight: 500; font-size: 15px; color: #f0f0f0; }
+  .mr-card-cap { font-family: 'Geist', sans-serif; font-size: 13px; color: #737373; }
+  .mr-card-when { font-family: 'Geist', sans-serif; font-size: 13px; color: #a3a3a3; margin-top: 10px; line-height: 1.5; }
+
+  .mr-steps { counter-reset: s; list-style: none; padding: 0; }
+  .mr-steps li { counter-increment: s; position: relative; padding-left: 44px; margin-bottom: 16px; font-family: 'Geist', sans-serif; font-size: 16px; color: #a3a3a3; line-height: 1.6; }
+  .mr-steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #1D9E75; color: #1D9E75; font-family: 'DM Mono', monospace; font-size: 13px; display: grid; place-items: center; }
+  .mr-steps strong { color: #f0f0f0; font-weight: 500; }
+
+  .mr-price { border: 1px solid #242424; background: #161616; border-radius: 18px; padding: 24px; }
+  .mr-amount { font-family: 'Instrument Serif', serif; font-size: 44px; color: #f0f0f0; line-height: 1; }
+  .mr-per { font-family: 'Geist', sans-serif; font-size: 14px; color: #737373; margin-left: 6px; }
+  .mr-included { margin-top: 18px; padding: 0; list-style: none; }
+  .mr-included li { font-family: 'Geist', sans-serif; font-size: 15px; color: #d4d4d4; padding: 6px 0 6px 24px; position: relative; }
+  .mr-included li::before { content: '✓'; position: absolute; left: 0; color: #1D9E75; }
+  .mr-included a { color: #1D9E75; text-underline-offset: 3px; }
+
+  .mr-faq { border-bottom: 1px solid #1f1f1f; padding: 16px 0; }
+  .mr-faq summary { cursor: pointer; font-family: 'Geist', sans-serif; font-weight: 500; font-size: 16px; color: #f0f0f0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .mr-faq summary::-webkit-details-marker { display: none; }
+  .mr-faq summary::after { content: '+'; color: #1D9E75; font-family: 'DM Mono', monospace; }
+  .mr-faq[open] summary::after { content: '×'; }
+  .mr-faq p { font-family: 'Geist', sans-serif; font-size: 15px; color: #a3a3a3; line-height: 1.65; margin-top: 10px; }
+</style>

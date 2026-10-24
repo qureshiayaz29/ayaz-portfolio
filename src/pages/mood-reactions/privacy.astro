@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/MoodReactions.astro';
+import { MR } from '../../data/moodReactions';
+---
+
+<Layout
+  title="Privacy Policy · Mood Reactions"
+  description="What the Mood Reactions Chrome extension looks at, what leaves your browser, and what doesn't."
+  canonical="/mood-reactions/privacy"
+>
+  <article class="mr-prose">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: {MR.lastUpdated}</p>
+
+    <div class="callout">
+      <strong>Short version:</strong> page content is checked inside your browser and never leaves it. To show a GIF,
+      the extension sends only the mood name and a license token to our server. We don't track your browsing,
+      show ads, or sell anything about you.
+    </div>
+
+    <p>
+      This policy covers the Mood Reactions Chrome extension and its backend service ("Mood Reactions", "we", "us"),
+      operated by {MR.seller}, {MR.sellerCountry}. It does not cover other projects on this website, which have their own policies.
+    </p>
+
+    <h2>What the extension looks at, only inside your browser</h2>
+    <p>To notice moments like a successful payment or a failed login, the extension checks, on the page you're viewing:</p>
+    <ul>
+      <li>Short visible status messages, such as toasts, alerts and headings ("Payment successful", "Incorrect password").</li>
+      <li>The page address (for example <code>/order-confirmation</code>).</li>
+      <li>The method, address and status code of requests the page makes (for example "POST /login returned 401"). It never reads request or response contents.</li>
+      <li>Whether a login form or a "Continue with Google"-style button was used. It never reads what you type.</li>
+    </ul>
+    <p><strong>None of this is stored, logged or sent anywhere.</strong> It is used on the spot to decide whether to show a GIF, and then discarded.</p>
+
+    <h2>What is sent to our server</h2>
+    <ul>
+      <li><strong>When you activate or re-check your license:</strong> your license key and a device label (for example "Chrome on macOS"), so we can confirm your purchase with our payment provider.</li>
+      <li><strong>When fetching GIFs:</strong> the mood name (for example <code>login_fail</code>) and a temporary license token. We do not receive the website you're on, its address, or any page content.</li>
+    </ul>
+    <p>
+      Like any web service, our hosting provider sees your IP address when the extension contacts our server, and keeps
+      short-lived technical logs (time, endpoint, status, approximate country) for security and debugging. These are
+      kept for a few days and not used for anything else.
+    </p>
+
+    <h2>Purchases</h2>
+    <p>
+      Purchases are handled by <strong>Dodo Payments</strong>, who act as the merchant of record. You give your name,
+      email, billing address and payment details to them, not to us. We never see your card or UPI details. Dodo shares
+      your name, email, country and order details with us so we can deliver your license, handle refunds and answer
+      support requests.
+    </p>
+
+    <h2>Third parties</h2>
+    <ul>
+      <li><strong>Dodo Payments:</strong> payments, subscriptions, refunds and license keys.</li>
+      <li><strong>GIPHY:</strong> GIF images are loaded directly from GIPHY's servers, so GIPHY receives your IP address and standard browser request headers when a GIF is shown.</li>
+      <li><strong>Cloudflare:</strong> hosts our server.</li>
+    </ul>
+
+    <h2>Stored on your device</h2>
+    <p>
+      Your settings (on/off, sites you've turned it off for, how long reactions stay) and your license key are kept in
+      Chrome's extension storage. Settings may sync across your Chrome profiles through your Google account; the license
+      key does not.
+    </p>
+
+    <h2>What we don't do</h2>
+    <ul>
+      <li>We don't sell or share your data.</li>
+      <li>We don't use it for advertising or build profiles.</li>
+      <li>We don't collect your browsing history.</li>
+      <li>We use data only to provide the extension's single purpose: showing reactions.</li>
+    </ul>
+
+    <h2>Your choices</h2>
+    <p>
+      You can turn the extension off globally or per site, deactivate it from the activation page, or uninstall it at any
+      time, which removes everything it stored on your device. To access or delete the purchase information we hold about
+      you, email <a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a>. We'll keep only what tax and accounting law
+      requires.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      If what the extension collects ever changes, we'll update this page and tell you in the extension before the change
+      takes effect.
+    </p>
+
+    <h2>Contact</h2>
+    <p><a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a></p>
+  </article>
+</Layout>
+
+<style>
+  code { font-family: 'DM Mono', monospace; font-size: 13px; background: #1f1f1f; padding: 2px 6px; border-radius: 6px; color: #f0f0f0; }
+</style>
