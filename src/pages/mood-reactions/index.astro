@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'What if I don’t like it?',
-    a: `Email us within ${MR.refundDays} days of buying for a full refund. No questions asked.`,
+    a: `Email us within ${MR.refundWindow} of buying for a full refund. No questions asked.`,
   },
 ];
 ---
@@ -107,7 +107,7 @@ const faqs = [
         <li>Use on up to {MR.activations} browsers</li>
         <li>Turn it off for any site, choose how long reactions stay</li>
         <li>Taxes included. Renews yearly, cancel any time</li>
-        <li>{MR.refundDays}-day money-back guarantee. <a href="/mood-reactions/refund">Refund policy</a></li>
+        <li>{MR.refundBadge} money-back guarantee. <a href="/mood-reactions/refund">Refund policy</a></li>
       </ul>
       {MR.checkoutUrl ? (
         <a class="mr-btn mr-btn-primary mt-6" href={MR.checkoutUrl} target="_blank" rel="noopener">Buy license</a>

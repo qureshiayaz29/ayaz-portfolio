@@ -11,7 +11,8 @@ export const MR = {
   seller: 'Ayaz Qureshi',
   sellerCountry: 'India',
   activations: 3,
-  refundDays: 7,
+  refundWindow: '7 days', // used in sentences: "within 7 days"
+  refundBadge: '7-day', // used in "7-day money-back guarantee"
   lastUpdated: '24 October 2026',
 };
 
