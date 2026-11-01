@@ -52,28 +52,7 @@ export const projects: Project[] = [
         status: "live",
         desc: "Telegram bot that tailors resumes to specific job descriptions using AI.",
         what: "Paste a JD, get a tailored resume. Built with Python, OpenAI APIs, Telegram API, Reportlab. Deployed on Fly.io.",
-        stack: "Python · OpenAI · Telegram API · Fly.io",
-        link: "https://t.me/ResumeFitBot"
-    },
-    {
-        name: "NIFTY Options Trading Bot",
-        cat: "ai",
-        catLabel: "AI + Automation",
-        status: "progress",
-        desc: "Algorithmic trading bot for NIFTY options with backtesting. Paper trading dev done, not yet validated.",
-        what: "Algo-driven options strategy execution with a full backtesting suite. Deployed on DigitalOcean.",
-        stack: "Python · DigitalOcean",
-        next: "Validation and live testing"
-    },
-    {
-        name: "Non-Custodial Crypto Payments",
-        cat: "startup",
-        catLabel: "Startup Ideas",
-        status: "progress",
-        desc: "UPI-style crypto payment platform. Non-custodial, privacy-first.",
-        what: "Decentralised payment flows using Transak SDK and Firebase. No custody of user funds.",
-        stack: "Firebase · Transak SDK",
-        next: "Active development"
+        stack: "Python · OpenAI · Telegram API · Fly.io"
     },
     {
         name: "Bug Reproduction Tool",

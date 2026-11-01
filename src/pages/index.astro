@@ -8,7 +8,7 @@ import { experiences } from '../data/experience';
 import { projects } from '../data/projects';
 import { SITE_URL } from '../site.config.mjs';
 
-const featuredProjectNames = ['JSON parser and developer toolkit', 'NIFTY Options Trading Bot', 'Tez Billing'];
+const featuredProjectNames = ['JSON parser and developer toolkit', 'Tez Billing'];
 const featuredProjects = featuredProjectNames
   .map(name => projects.find(p => p.name === name))
   .filter(Boolean);
@@ -23,7 +23,6 @@ const channels = [
 const websites = [
   { name: 'Parse JSON Online', url: 'https://parsejsononline.com', domain: 'parsejsononline.com' },
   { name: 'Tez Billing',       url: 'https://tezbilling.com',      domain: 'tezbilling.com' },
-  { name: 'ResumeFit Bot',     url: 'https://t.me/ResumeFitBot',   domain: 't.me/ResumeFitBot' },
 ];
 
 const skillGroups = [
