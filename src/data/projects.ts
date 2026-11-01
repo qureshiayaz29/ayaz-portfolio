@@ -25,14 +25,14 @@ export const projects: Project[] = [
         link: "https://parsejsononline.com"
     },
     {
-        name: "Tez Billing",
-        cat: "consumer",
-        catLabel: "Consumer Apps",
+        name: "StoreRating Bot",
+        cat: "ai",
+        catLabel: "AI + Automation",
         status: "live",
-        desc: "Invoice generator for freelancers and small businesses. Phase 1 live on tezbilling.com.",
-        what: "Fast, clean invoice generation without signup friction. Built for solo operators.",
-        stack: "Web · Firebase",
-        link: "https://tezbilling.com"
+        desc: "Telegram bot that watches Google Play and App Store apps: rating moves, releases, top complaints and 1★ spikes. Free.",
+        what: "Follow any app and get alerts in Telegram when its rating shifts, a new version ships, complaints cluster, or 1★ reviews spike.",
+        stack: "Telegram Bot · Google Play · App Store",
+        link: "https://t.me/StoreRatingbot"
     },
     {
         name: "Mood Reactions",
@@ -45,14 +45,14 @@ export const projects: Project[] = [
         link: "/mood-reactions"
     },
     {
-        name: "StoreRating Bot",
-        cat: "ai",
-        catLabel: "AI + Automation",
+        name: "Tez Billing",
+        cat: "consumer",
+        catLabel: "Consumer Apps",
         status: "live",
-        desc: "Telegram bot that watches Google Play and App Store apps: rating moves, releases, top complaints and 1★ spikes. Free.",
-        what: "Follow any app and get alerts in Telegram when its rating shifts, a new version ships, complaints cluster, or 1★ reviews spike.",
-        stack: "Telegram Bot · Google Play · App Store",
-        link: "https://t.me/StoreRatingbot"
+        desc: "Invoice generator for freelancers and small businesses. Phase 1 live on tezbilling.com.",
+        what: "Fast, clean invoice generation without signup friction. Built for solo operators.",
+        stack: "Web · Firebase",
+        link: "https://tezbilling.com"
     },
     {
         name: "Meal Recommendation Engine",
