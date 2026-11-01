@@ -23,7 +23,7 @@ const filterTabs = [
   <main id="content" class="max-w-3xl mx-auto px-6">
 
     <!-- ── Page header ──────────────────────────────────────────────── -->
-    <section class="pt-14 pb-10">
+    <section id="proj-header" class="pt-14 pb-10">
       <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-bottom:14px;">
         Everything I've built, am building, or am thinking about
       </p>
@@ -69,7 +69,30 @@ const filterTabs = [
   </main>
 
   <script>
-    // Project filter
+    import { animate, stagger } from 'motion';
+
+    // ── Motion animations ──────────────────────────────────────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+      // Page header: stagger children in on load
+      const headerEls = Array.from(document.querySelectorAll<HTMLElement>('#proj-header > *'));
+      headerEls.forEach(el => { el.style.opacity = '0'; });
+      animate(headerEls, { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.07), duration: 0.5, easing: 'ease-out' });
+
+      // Project cards: fade in individually as they scroll into view
+      const projEls = Array.from(document.querySelectorAll<HTMLElement>('#projects-grid > *'));
+      projEls.forEach(el => { el.style.opacity = '0'; });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, easing: 'ease-out' });
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.1 });
+      projEls.forEach(el => observer.observe(el));
+    }
+
+    // ── Project filter ─────────────────────────────────────────────────
     const projFilterBtns = document.querySelectorAll<HTMLButtonElement>('.proj-filter-btn');
     projFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -81,7 +104,7 @@ const filterTabs = [
       });
     });
 
-    // Expand / collapse
+    // ── Expand / collapse ──────────────────────────────────────────────
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;

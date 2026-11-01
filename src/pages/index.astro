@@ -129,7 +129,7 @@ const jsonLd = JSON.stringify({
   <main id="content" class="max-w-3xl mx-auto px-6">
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
-    <section class="pt-16 pb-16">
+    <section id="hero" class="pt-16 pb-16">
       <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#525252;">
         Ayaz Qureshi — Bangalore, India
       </p>
@@ -186,7 +186,7 @@ const jsonLd = JSON.stringify({
       <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252; margin-bottom:20px;">
         Skills &amp; expertise
       </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
+      <div id="skills-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
         {skillGroups.map(sg => (
           <SkillGroup
             title={sg.title}
@@ -215,7 +215,7 @@ const jsonLd = JSON.stringify({
       </div>
 
       <!-- Experience cards -->
-      <div class="flex flex-col gap-3">
+      <div id="exp-list" class="flex flex-col gap-3">
         {experiences.map(exp => (
           <ExpCard
             domain={exp.domain}
@@ -244,7 +244,7 @@ const jsonLd = JSON.stringify({
         >See all →</a>
       </div>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px;">
+      <div id="featured-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px;">
         {featuredProjects.map(p => p && (
           <ProjectCard
             name={p.name}
@@ -265,7 +265,36 @@ const jsonLd = JSON.stringify({
   </main>
 
   <script>
-    // Experience filter
+    import { animate, stagger } from 'motion';
+
+    // ── Motion animations ──────────────────────────────────────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+      // Hero: stagger all direct children in on load
+      const heroEls = Array.from(document.querySelectorAll<HTMLElement>('#hero > *'));
+      heroEls.forEach(el => { el.style.opacity = '0'; });
+      animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { delay: stagger(0.07), duration: 0.55, easing: 'ease-out' });
+
+      // Scroll-reveal helper: fades each element in when it enters the viewport
+      function revealOnScroll(selector: string) {
+        const els = Array.from(document.querySelectorAll<HTMLElement>(selector));
+        els.forEach(el => { el.style.opacity = '0'; });
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, easing: 'ease-out' });
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.1 });
+        els.forEach(el => observer.observe(el));
+      }
+
+      revealOnScroll('#skills-grid > *');
+      revealOnScroll('#exp-list > *');
+      revealOnScroll('#featured-grid > *');
+    }
+
+    // ── Experience filter ──────────────────────────────────────────────
     const expFilterBtns = document.querySelectorAll<HTMLButtonElement>('[data-exp-filter]');
     expFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -277,7 +306,7 @@ const jsonLd = JSON.stringify({
       });
     });
 
-    // Expand / collapse
+    // ── Expand / collapse ──────────────────────────────────────────────
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;
