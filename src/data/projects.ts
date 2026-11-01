@@ -55,6 +55,26 @@ export const projects: Project[] = [
         stack: "Python · OpenAI · Telegram API · Fly.io"
     },
     {
+        name: "NIFTY Options Trading Bot",
+        cat: "ai",
+        catLabel: "AI + Automation",
+        status: "idea",
+        desc: "Algorithmic trading bot for NIFTY options with backtesting. Paper trading dev done, not yet validated.",
+        what: "Algo-driven options strategy execution with a full backtesting suite. Deployed on DigitalOcean.",
+        stack: "Python · DigitalOcean",
+        next: "Validation and live testing"
+    },
+    {
+        name: "Non-Custodial Crypto Payments",
+        cat: "startup",
+        catLabel: "Startup Ideas",
+        status: "idea",
+        desc: "UPI-style crypto payment platform. Non-custodial, privacy-first.",
+        what: "Decentralised payment flows using Transak SDK and Firebase. No custody of user funds.",
+        stack: "Firebase · Transak SDK",
+        next: "On hold"
+    },
+    {
         name: "Bug Reproduction Tool",
         cat: "dev-tools",
         catLabel: "Developer Tools",
