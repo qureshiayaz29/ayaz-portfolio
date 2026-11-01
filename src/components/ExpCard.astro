@@ -15,6 +15,9 @@ const { domain, domainLabel, role, title, tenure, scale, stack, highlights } = A
 
 <div
   class="exp-card expandable-card"
+  tabindex="0"
+  role="button"
+  aria-expanded="false"
   data-domain={domain}
   style="border:1px solid #242424; border-radius:12px; padding:20px; background:#161616; cursor:pointer; transition:border-color 0.15s;"
   onmouseover="this.style.borderColor='#333'"

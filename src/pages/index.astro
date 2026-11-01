@@ -7,9 +7,8 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { experiences } from '../data/experience';
 import { projects } from '../data/projects';
 import { SITE_URL } from '../site.config.mjs';
-import Analytics from '@vercel/analytics/astro';
 
-const featuredProjectNames = ['Antigravity Toolkit', 'NIFTY Options Trading Bot', 'Tez Billing'];
+const featuredProjectNames = ['JSON parser and developer toolkit', 'NIFTY Options Trading Bot', 'Tez Billing'];
 const featuredProjects = featuredProjectNames
   .map(name => projects.find(p => p.name === name))
   .filter(Boolean);
@@ -273,7 +272,7 @@ const jsonLd = JSON.stringify({
       // Hero: stagger all direct children in on load
       const heroEls = Array.from(document.querySelectorAll<HTMLElement>('#hero > *'));
       heroEls.forEach(el => { el.style.opacity = '0'; });
-      animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { delay: stagger(0.07), duration: 0.55, easing: 'ease-out' });
+      animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { delay: stagger(0.07), duration: 0.55, ease: 'easeOut' });
 
       // Scroll-reveal helper: fades each element in when it enters the viewport
       function revealOnScroll(selector: string) {
@@ -282,7 +281,7 @@ const jsonLd = JSON.stringify({
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-            animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, easing: 'ease-out' });
+            animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, ease: 'easeOut' });
             observer.unobserve(entry.target);
           });
         }, { threshold: 0.1 });
@@ -308,9 +307,20 @@ const jsonLd = JSON.stringify({
 
     // ── Expand / collapse ──────────────────────────────────────────────
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
+      const toggle = () => {
+        const expanded = card.classList.toggle('expanded');
+        card.setAttribute('aria-expanded', String(expanded));
+      };
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;
-        card.classList.toggle('expanded');
+        toggle();
+      });
+      card.addEventListener('keydown', e => {
+        if (e.target !== card) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
       });
     });
   </script>

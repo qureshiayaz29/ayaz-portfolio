@@ -67,8 +67,8 @@ export const projects: Project[] = [
     },
     {
         name: "Non-Custodial Crypto Payments",
-        cat: "ai",
-        catLabel: "AI + Automation",
+        cat: "startup",
+        catLabel: "Startup Ideas",
         status: "progress",
         desc: "UPI-style crypto payment platform. Non-custodial, privacy-first.",
         what: "Decentralised payment flows using Transak SDK and Firebase. No custody of user funds.",

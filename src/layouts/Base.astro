@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE_URL } from '../site.config.mjs';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -68,6 +69,8 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
       >Skip to content</a>
       <slot />
     </div>
+
+    <Analytics />
 
     <script>
       const canvas = document.getElementById('bg-canvas') as HTMLCanvasElement;

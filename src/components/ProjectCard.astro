@@ -47,6 +47,9 @@ const stackTags = stack.split('·').map(s => s.trim()).filter(Boolean);
 ) : (
   <div
     class="proj-card expandable-card"
+    tabindex="0"
+    role="button"
+    aria-expanded="false"
     data-cat={cat}
     style="border:1px solid #242424; border-radius:12px; padding:20px; background:#161616; cursor:pointer; transition:border-color 0.15s;"
     onmouseover="this.style.borderColor='#333'"
