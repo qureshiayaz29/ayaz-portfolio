@@ -8,10 +8,9 @@ import { experiences } from '../data/experience';
 import { projects } from '../data/projects';
 import { SITE_URL } from '../site.config.mjs';
 
-const featuredProjectNames = ['JSON parser and developer toolkit', 'Tez Billing'];
-const featuredProjects = featuredProjectNames
-  .map(name => projects.find(p => p.name === name))
-  .filter(Boolean);
+// Home page shows every shipped project; ideas get a one-line teaser.
+const featuredProjects = projects.filter(p => p.status === 'live');
+const ideaCount = projects.filter(p => p.status === 'idea').length;
 
 const channels = [
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ayazqureshi29/' },
@@ -23,6 +22,7 @@ const channels = [
 const websites = [
   { name: 'Parse JSON Online', url: 'https://parsejsononline.com', domain: 'parsejsononline.com' },
   { name: 'Tez Billing',       url: 'https://tezbilling.com',      domain: 'tezbilling.com' },
+  { name: 'Mood Reactions',    url: '/mood-reactions',             domain: 'Chrome extension' },
 ];
 
 const skillGroups = [
@@ -167,13 +167,13 @@ const jsonLd = JSON.stringify({
         {websites.map(w => (
           <a
             href={w.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={w.url.startsWith('http') ? '_blank' : undefined}
+            rel={w.url.startsWith('http') ? 'noopener noreferrer' : undefined}
             class="website-link"
             style="border:1px solid #2e2e2e; border-radius:10px; padding:11px 16px; text-decoration:none; display:flex; flex-direction:column; gap:3px; min-width:150px;"
           >
             <span style="font-family:'Geist',sans-serif; font-size:14px; font-weight:500; color:#d4d4d4;">{w.name}</span>
-            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#525252;">{w.domain} ↗</span>
+            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#525252;">{w.domain}{w.url.startsWith('http') ? ' ↗' : ' →'}</span>
           </a>
         ))}
       </div>
@@ -233,7 +233,7 @@ const jsonLd = JSON.stringify({
     <section class="pb-20">
       <div class="flex items-center justify-between mb-5">
         <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252;">
-          Featured projects
+          Shipped projects
         </p>
         <a
           href="/projects"
@@ -258,6 +258,13 @@ const jsonLd = JSON.stringify({
           />
         ))}
       </div>
+
+      {ideaCount > 0 && (
+        <a href="/projects#ideas" class="ideas-teaser">
+          <span>+{ideaCount} ideas I'm exploring</span>
+          <span style="color:#1D9E75;">→</span>
+        </a>
+      )}
     </section>
 
   </main>
@@ -327,6 +334,21 @@ const jsonLd = JSON.stringify({
   <style>
     .channel-pill:hover { background: #1a1a1a; border-color: #3a3a3a; }
     .see-all-link:hover { text-decoration: underline; }
+    .ideas-teaser {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding: 14px 20px;
+      border: 1px dashed #2e2e2e;
+      border-radius: 12px;
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+      color: #a3a3a3;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .ideas-teaser:hover { border-color: #1D9E75; color: #f0f0f0; }
     .website-link:hover {
       border-color: #1D9E75 !important;
       background: rgba(29,158,117,0.04);

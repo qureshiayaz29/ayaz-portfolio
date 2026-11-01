@@ -5,7 +5,7 @@ Built with Astro and Tailwind CSS, deployed on Vercel as a static site.
 
 ## Pages
 - `/` — hero, skills, professional experience (filterable), featured projects
-- `/projects` — every project, filterable by category, with expandable details
+- `/projects` — every project grouped into Shipped, Building, Experiments and Ideas (ideas have a Discuss email button)
 - `/mood-reactions` — product page for the Mood Reactions Chrome extension, plus its privacy, terms and refund pages
 - `/404` and a generated `/sitemap.xml`
 
@@ -14,7 +14,7 @@ Most content lives in data files, so you rarely need to touch layout:
 - `src/data/projects.ts` — projects (name, category, status, links)
 - `src/data/experience.ts` — experience entries
 - `src/data/moodReactions.ts` — Mood Reactions copy, prices, store and checkout links
-- Featured projects on the home page are picked by name in `src/pages/index.astro`
+- The home page shows every project with `status: "live"`, plus a teaser linking to the ideas
 
 ## Tech stack
 - Astro 5, Tailwind CSS 3

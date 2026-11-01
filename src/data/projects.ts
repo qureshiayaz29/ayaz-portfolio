@@ -1,4 +1,4 @@
-export type ProjectStatus = 'live' | 'progress' | 'idea'
+export type ProjectStatus = 'live' | 'progress' | 'experiment' | 'idea'
 
 export interface Project {
     name: string
@@ -34,22 +34,30 @@ export const projects: Project[] = [
         stack: "Web · Firebase",
         link: "https://tezbilling.com"
     },
-
+    {
+        name: "Mood Reactions",
+        cat: "consumer",
+        catLabel: "Consumer Apps",
+        status: "live",
+        desc: "Chrome extension that pops up a reaction GIF when a payment goes through, a login fails, or a site breaks.",
+        what: "Detects moments like payment success, login failures and error pages from what the page says, entirely in the browser. Paid product with yearly licenses.",
+        stack: "Chrome Extension · Dodo Payments",
+        link: "/mood-reactions"
+    },
     {
         name: "Meal Recommendation Engine",
         cat: "ai",
         catLabel: "AI + Automation",
-        status: "live",
-        desc: "AI-powered meal recommendation system. Phase 2 live — built for personal usage.",
+        status: "experiment",
+        desc: "AI-powered meal recommendation system, built for personal use.",
         what: "Personalised meal suggestions based on preferences and dietary constraints. Personal project.",
         stack: "AI APIs · Web"
     },
-
     {
         name: "Resume Tailoring Bot",
         cat: "ai",
         catLabel: "AI + Automation",
-        status: "live",
+        status: "experiment",
         desc: "Telegram bot that tailors resumes to specific job descriptions using AI.",
         what: "Paste a JD, get a tailored resume. Built with Python, OpenAI APIs, Telegram API, Reportlab. Deployed on Fly.io.",
         stack: "Python · OpenAI · Telegram API · Fly.io"
@@ -75,16 +83,6 @@ export const projects: Project[] = [
         next: "On hold"
     },
     {
-        name: "Bug Reproduction Tool",
-        cat: "dev-tools",
-        catLabel: "Developer Tools",
-        status: "idea",
-        desc: "A tool to help developers reproduce and document bugs consistently.",
-        what: "Structured bug capture and reproduction steps — reduces back-and-forth between QA and devs.",
-        stack: "TBD",
-        next: "Figuring out scope"
-    },
-    {
         name: "Bachpan Radio",
         cat: "consumer",
         catLabel: "Consumer Apps",
@@ -105,12 +103,12 @@ export const projects: Project[] = [
         next: "Market research first"
     },
     {
-        name: "Android Bug Automation Tool",
-        cat: "startup",
-        catLabel: "Startup Ideas",
+        name: "Android Bug Reproduction Tool",
+        cat: "dev-tools",
+        catLabel: "Developer Tools",
         status: "idea",
-        desc: "Automate Android bug reproduction — a B2B tool for QA and dev teams.",
-        what: "Record, reproduce, and document Android bugs automatically. Strong B2B potential.",
+        desc: "Record, reproduce and document Android bugs automatically. A B2B tool for QA and dev teams.",
+        what: "Structured bug capture with automatic reproduction steps, cutting the back-and-forth between QA and developers.",
         stack: "TBD",
         next: "Scoping and validation"
     }

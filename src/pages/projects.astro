@@ -4,13 +4,14 @@ import Nav from '../components/Nav.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
 
-const filterTabs = [
-  { label: 'All',              value: 'all' },
-  { label: 'Developer Tools',  value: 'dev-tools' },
-  { label: 'Consumer Apps',    value: 'consumer' },
-  { label: 'AI + Automation',  value: 'ai' },
-  { label: 'Startup Ideas',    value: 'startup' },
-];
+const sections = [
+  { id: 'shipped',     title: 'Shipped',     blurb: 'Live products you can use today.',                                 status: 'live' },
+  { id: 'building',    title: 'Building',    blurb: 'What I’m actively working on.',                                    status: 'progress' },
+  { id: 'experiments', title: 'Experiments', blurb: 'Things I built to learn or for my own use.',                       status: 'experiment' },
+  { id: 'ideas',       title: 'Ideas',       blurb: 'Ideas I’m exploring. Interested in one? Hit Discuss and email me.', status: 'idea' },
+]
+  .map(sec => ({ ...sec, items: projects.filter(p => p.status === sec.status) }))
+  .filter(sec => sec.items.length > 0);
 ---
 
 <Base
@@ -36,35 +37,33 @@ const filterTabs = [
       </p>
     </section>
 
-    <!-- ── Sticky filter bar ────────────────────────────────────────── -->
-    <div class="filter-bar" style="position:sticky; top:57px; z-index:5; background:#0c0c0c; padding:12px 0; border-bottom:1px solid #1f1f1f; margin-bottom:20px;">
-      <div class="flex flex-wrap gap-2">
-        {filterTabs.map((tab, i) => (
-          <button
-            class={`filter-btn proj-filter-btn${i === 0 ? ' active' : ''}`}
-            data-filter={tab.value}
-          >{tab.label}</button>
-        ))}
-      </div>
-    </div>
-
-    <!-- ── Project card grid ─────────────────────────────────────────── -->
-    <div id="projects-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; padding-bottom:80px;">
-      {projects.map(p => (
-        <ProjectCard
-          name={p.name}
-          cat={p.cat}
-          catLabel={p.catLabel}
-          status={p.status}
-          desc={p.desc}
-          what={p.what}
-          stack={p.stack}
-          next={p.next}
-          link={p.link}
-          featured={false}
-        />
-      ))}
-    </div>
+    {sections.map(sec => (
+      <section id={sec.id} class="proj-section" style="padding-bottom:48px; scroll-margin-top:72px;">
+        <div style="margin-bottom:16px;">
+          <h2 style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#a3a3a3; margin:0;">
+            {sec.title} <span style="color:#525252;">· {sec.items.length}</span>
+          </h2>
+          <p style="font-family:'Geist',sans-serif; font-size:14px; color:#737373; margin-top:6px;">{sec.blurb}</p>
+        </div>
+        <div class="projects-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px;">
+          {sec.items.map(p => (
+            <ProjectCard
+              name={p.name}
+              cat={p.cat}
+              catLabel={p.catLabel}
+              status={p.status}
+              desc={p.desc}
+              what={p.what}
+              stack={p.stack}
+              next={p.next}
+              link={p.link}
+              featured={false}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+    <div style="height:32px;"></div>
 
   </main>
 
@@ -80,7 +79,7 @@ const filterTabs = [
       animate(headerEls, { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.07), duration: 0.5, ease: 'easeOut' });
 
       // Project cards: fade in individually as they scroll into view
-      const projEls = Array.from(document.querySelectorAll<HTMLElement>('#projects-grid > *'));
+      const projEls = Array.from(document.querySelectorAll<HTMLElement>('.projects-grid > *'));
       projEls.forEach(el => { el.style.opacity = '0'; });
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -91,18 +90,6 @@ const filterTabs = [
       }, { threshold: 0.1 });
       projEls.forEach(el => observer.observe(el));
     }
-
-    // ── Project filter ─────────────────────────────────────────────────
-    const projFilterBtns = document.querySelectorAll<HTMLButtonElement>('.proj-filter-btn');
-    projFilterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.filter ?? 'all';
-        document.querySelectorAll<HTMLElement>('.proj-card').forEach(card => {
-          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
-        });
-        projFilterBtns.forEach(b => b.classList.toggle('active', b === btn));
-      });
-    });
 
     // ── Expand / collapse ──────────────────────────────────────────────
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
