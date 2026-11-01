@@ -4,13 +4,14 @@ import Nav from '../components/Nav.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../data/projects';
 
-const filterTabs = [
-  { label: 'All',              value: 'all' },
-  { label: 'Developer Tools',  value: 'dev-tools' },
-  { label: 'Consumer Apps',    value: 'consumer' },
-  { label: 'AI + Automation',  value: 'ai' },
-  { label: 'Startup Ideas',    value: 'startup' },
-];
+const sections = [
+  { id: 'shipped',     title: 'Shipped',     blurb: 'Live products you can use today.',                                 status: 'live' },
+  { id: 'building',    title: 'Building',    blurb: 'What I’m actively working on.',                                    status: 'progress' },
+  { id: 'experiments', title: 'Experiments', blurb: 'Things I built to learn or for my own use.',                       status: 'experiment' },
+  { id: 'ideas',       title: 'Ideas',       blurb: 'Ideas I’m exploring. Interested in one? Hit Discuss and email me.', status: 'idea' },
+]
+  .map(sec => ({ ...sec, items: projects.filter(p => p.status === sec.status) }))
+  .filter(sec => sec.items.length > 0);
 ---
 
 <Base
@@ -23,69 +24,84 @@ const filterTabs = [
   <main id="content" class="max-w-3xl mx-auto px-6">
 
     <!-- ── Page header ──────────────────────────────────────────────── -->
-    <section class="pt-14 pb-10">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; color:#525252; margin-bottom:14px;">
+    <section id="proj-header" class="pt-14 pb-10">
+      <p style="font-family:'DM Mono',monospace; font-size:12px; color:#8a8a8a; margin-bottom:14px;">
         Everything I've built, am building, or am thinking about
       </p>
       <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.2rem,5vw,3.2rem); line-height:1.05; color:#f0f0f0;">
         Projects
       </h1>
-      <p style="font-family:'Geist',sans-serif; font-size:16px; color:#737373; max-width:52ch; line-height:1.75; margin-top:16px;">
+      <p style="font-family:'Geist',sans-serif; font-size:16px; color:#9c9c9c; max-width:52ch; line-height:1.75; margin-top:16px;">
         A running log of tools, apps, and ideas — across developer tooling, consumer apps,
         AI automation, and startup bets.
       </p>
     </section>
 
-    <!-- ── Sticky filter bar ────────────────────────────────────────── -->
-    <div class="filter-bar" style="position:sticky; top:57px; z-index:5; background:#0c0c0c; padding:12px 0; border-bottom:1px solid #1f1f1f; margin-bottom:20px;">
-      <div class="flex flex-wrap gap-2">
-        {filterTabs.map((tab, i) => (
-          <button
-            class={`filter-btn proj-filter-btn${i === 0 ? ' active' : ''}`}
-            data-filter={tab.value}
-          >{tab.label}</button>
-        ))}
-      </div>
-    </div>
-
-    <!-- ── Project card grid ─────────────────────────────────────────── -->
-    <div id="projects-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; padding-bottom:80px;">
-      {projects.map(p => (
-        <ProjectCard
-          name={p.name}
-          cat={p.cat}
-          catLabel={p.catLabel}
-          status={p.status}
-          desc={p.desc}
-          what={p.what}
-          stack={p.stack}
-          next={p.next}
-          link={p.link}
-          featured={false}
-        />
-      ))}
-    </div>
+    {sections.map(sec => (
+      <section id={sec.id} class="proj-section" style="padding-bottom:48px; scroll-margin-top:72px;">
+        <div style="margin-bottom:16px;">
+          <h2 style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#a3a3a3; margin:0;">
+            {sec.title} <span style="color:#8a8a8a;">· {sec.items.length}</span>
+          </h2>
+          <p style="font-family:'Geist',sans-serif; font-size:14px; color:#9c9c9c; margin-top:6px;">{sec.blurb}</p>
+        </div>
+        <div class="projects-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px;">
+          {sec.items.map(p => (
+            <ProjectCard
+              name={p.name}
+              cat={p.cat}
+              catLabel={p.catLabel}
+              status={p.status}
+              desc={p.desc}
+              what={p.what}
+              stack={p.stack}
+              next={p.next}
+              link={p.link}
+              image={p.image}
+              imageAlt={p.imageAlt}
+              featured={false}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+    <div style="height:32px;"></div>
 
   </main>
 
   <script>
-    // Project filter
-    const projFilterBtns = document.querySelectorAll<HTMLButtonElement>('.proj-filter-btn');
-    projFilterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.filter ?? 'all';
-        document.querySelectorAll<HTMLElement>('.proj-card').forEach(card => {
-          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
-        });
-        projFilterBtns.forEach(b => b.classList.toggle('active', b === btn));
-      });
-    });
+    import { animate, stagger } from 'motion';
 
-    // Expand / collapse
+    // ── Motion animations ──────────────────────────────────────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+      // Page header: stagger children in on load
+      const headerEls = Array.from(document.querySelectorAll<HTMLElement>('#proj-header > *'));
+      headerEls.forEach(el => { el.style.opacity = '0'; });
+      animate(headerEls, { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.07), duration: 0.5, ease: 'easeOut' });
+
+      // Project cards: fade in individually as they scroll into view
+      const projEls = Array.from(document.querySelectorAll<HTMLElement>('.projects-grid > *'));
+      projEls.forEach(el => { el.style.opacity = '0'; });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, ease: 'easeOut' });
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.1 });
+      projEls.forEach(el => observer.observe(el));
+    }
+
+    // ── Expand / collapse ──────────────────────────────────────────────
+    // The toggle button handles keyboard users; a click anywhere else on the card works too.
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
+      const btn = card.querySelector<HTMLButtonElement>('.expand-toggle');
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;
-        card.classList.toggle('expanded');
+        const expanded = card.classList.toggle('expanded');
+        btn?.setAttribute('aria-expanded', String(expanded));
+        if (btn) btn.setAttribute('aria-label', btn.getAttribute('aria-label')!.replace(/^(Show|Hide)/, expanded ? 'Hide' : 'Show'));
       });
     });
   </script>

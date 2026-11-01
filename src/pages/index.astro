@@ -4,15 +4,13 @@ import Nav from '../components/Nav.astro';
 import SkillGroup from '../components/SkillGroup.astro';
 import ExpCard from '../components/ExpCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { experiences } from '../data/experience';
+import { experiences, tenureLabel } from '../data/experience';
 import { projects } from '../data/projects';
 import { SITE_URL } from '../site.config.mjs';
-import Analytics from '@vercel/analytics/astro';
 
-const featuredProjectNames = ['Antigravity Toolkit', 'NIFTY Options Trading Bot', 'Tez Billing'];
-const featuredProjects = featuredProjectNames
-  .map(name => projects.find(p => p.name === name))
-  .filter(Boolean);
+// Home page shows every shipped project; ideas get a one-line teaser.
+const featuredProjects = projects.filter(p => p.status === 'live');
+const ideaCount = projects.filter(p => p.status === 'idea').length;
 
 const channels = [
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ayazqureshi29/' },
@@ -23,8 +21,9 @@ const channels = [
 
 const websites = [
   { name: 'Parse JSON Online', url: 'https://parsejsononline.com', domain: 'parsejsononline.com' },
+  { name: 'StoreRating Bot',   url: 'https://t.me/StoreRatingbot', domain: 't.me/StoreRatingbot' },
+  { name: 'Mood Reactions',    url: '/mood-reactions',             domain: 'Chrome extension' },
   { name: 'Tez Billing',       url: 'https://tezbilling.com',      domain: 'tezbilling.com' },
-  { name: 'ResumeFit Bot',     url: 'https://t.me/ResumeFitBot',   domain: 't.me/ResumeFitBot' },
 ];
 
 const skillGroups = [
@@ -129,24 +128,34 @@ const jsonLd = JSON.stringify({
   <main id="content" class="max-w-3xl mx-auto px-6">
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
-    <section class="pt-16 pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#525252;">
-        Ayaz Qureshi — Bangalore, India
-      </p>
+    <section id="hero" class="pt-16 pb-16">
+      <div class="hero-top">
+        <div class="hero-intro">
+          <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a;">
+            Ayaz Qureshi — Bangalore, India
+          </p>
 
-      <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.8rem,7vw,4.5rem); line-height:1.05; color:#f0f0f0; margin-top:14px;">
-        Builder.<br />
-        <em style="font-style:italic; color:#1D9E75;">Indie Developer.</em>
-      </h1>
+          <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.8rem,7vw,4.5rem); line-height:1.05; color:#f0f0f0; margin-top:14px;">
+            Builder.<br />
+            <em style="font-style:italic; color:#1D9E75;">Indie Developer.</em>
+          </h1>
 
-      <p style="font-family:'Geist',sans-serif; font-size:16px; color:#737373; max-width:52ch; line-height:1.75; margin-top:22px;">
-        I ship products end-to-end — from architecture and system design to delightful UIs.
-        Mobile-first, but increasingly building for web, AI, and automation. Currently working
-        on a handful of tools and platforms in parallel.
-      </p>
+          <p style="font-family:'Geist',sans-serif; font-size:16px; color:#9c9c9c; max-width:52ch; line-height:1.75; margin-top:22px;">
+            I ship products end-to-end — from architecture and system design to delightful UIs.
+            Mobile-first, but increasingly building for web, AI, and automation. Currently working
+            on a handful of tools and platforms in parallel.
+          </p>
+        </div>
+        <figure class="hero-portrait">
+          <picture>
+            <source srcset="/images/ayaz-portrait.webp" type="image/webp" />
+            <img src="/images/ayaz-portrait.jpg" alt="Ayaz Qureshi working on a laptop" width="800" height="1000" fetchpriority="high" decoding="async" />
+          </picture>
+        </figure>
+      </div>
 
       <!-- Find me on -->
-      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#525252; margin-top:28px; margin-bottom:10px;">
+      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a; margin-top:28px; margin-bottom:10px;">
         Find me on
       </p>
       <div class="flex flex-wrap gap-2">
@@ -162,20 +171,20 @@ const jsonLd = JSON.stringify({
       </div>
 
       <!-- Things I've built -->
-      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#525252; margin-top:24px; margin-bottom:10px;">
+      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a; margin-top:24px; margin-bottom:10px;">
         Things I've built
       </p>
       <div class="flex flex-wrap gap-3">
         {websites.map(w => (
           <a
             href={w.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={w.url.startsWith('http') ? '_blank' : undefined}
+            rel={w.url.startsWith('http') ? 'noopener noreferrer' : undefined}
             class="website-link"
             style="border:1px solid #2e2e2e; border-radius:10px; padding:11px 16px; text-decoration:none; display:flex; flex-direction:column; gap:3px; min-width:150px;"
           >
             <span style="font-family:'Geist',sans-serif; font-size:14px; font-weight:500; color:#d4d4d4;">{w.name}</span>
-            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#525252;">{w.domain} ↗</span>
+            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#8a8a8a;">{w.domain}{w.url.startsWith('http') ? ' ↗' : ' →'}</span>
           </a>
         ))}
       </div>
@@ -183,10 +192,10 @@ const jsonLd = JSON.stringify({
 
     <!-- ── Skills ────────────────────────────────────────────────────── -->
     <section class="pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252; margin-bottom:20px;">
+      <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a; margin-bottom:20px;">
         Skills &amp; expertise
-      </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
+      </h2>
+      <div id="skills-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
         {skillGroups.map(sg => (
           <SkillGroup
             title={sg.title}
@@ -202,9 +211,9 @@ const jsonLd = JSON.stringify({
 
     <!-- ── Experience ────────────────────────────────────────────────── -->
     <section class="pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252; margin-bottom:16px;">
+      <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a; margin-bottom:16px;">
         Professional work
-      </p>
+      </h2>
 
       <!-- Filter tabs -->
       <div class="flex flex-wrap gap-2 mb-5">
@@ -215,14 +224,14 @@ const jsonLd = JSON.stringify({
       </div>
 
       <!-- Experience cards -->
-      <div class="flex flex-col gap-3">
+      <div id="exp-list" class="flex flex-col gap-3">
         {experiences.map(exp => (
           <ExpCard
             domain={exp.domain}
             domainLabel={exp.domainLabel}
             role={exp.role}
             title={exp.title}
-            tenure={exp.tenure}
+            tenure={tenureLabel(exp)}
             scale={exp.scale}
             stack={exp.stack}
             highlights={exp.highlights}
@@ -234,9 +243,9 @@ const jsonLd = JSON.stringify({
     <!-- ── Featured Projects ─────────────────────────────────────────── -->
     <section class="pb-20">
       <div class="flex items-center justify-between mb-5">
-        <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252;">
-          Featured projects
-        </p>
+        <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a;">
+          Shipped projects
+        </h2>
         <a
           href="/projects"
           class="see-all-link"
@@ -244,7 +253,7 @@ const jsonLd = JSON.stringify({
         >See all →</a>
       </div>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px;">
+      <div id="featured-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px;">
         {featuredProjects.map(p => p && (
           <ProjectCard
             name={p.name}
@@ -256,16 +265,54 @@ const jsonLd = JSON.stringify({
             stack={p.stack}
             next={p.next}
             link={p.link}
+            image={p.image}
+            imageAlt={p.imageAlt}
             featured={true}
           />
         ))}
       </div>
+
+      {ideaCount > 0 && (
+        <a href="/projects#ideas" class="ideas-teaser">
+          <span>+{ideaCount} ideas I'm exploring</span>
+          <span style="color:#1D9E75;">→</span>
+        </a>
+      )}
     </section>
 
   </main>
 
   <script>
-    // Experience filter
+    import { animate, stagger } from 'motion';
+
+    // ── Motion animations ──────────────────────────────────────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+      // Hero: stagger all direct children in on load
+      const heroEls = Array.from(document.querySelectorAll<HTMLElement>('#hero .hero-intro > *, #hero .hero-portrait, #hero > :not(.hero-top)'));
+      heroEls.forEach(el => { el.style.opacity = '0'; });
+      animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { delay: stagger(0.07), duration: 0.55, ease: 'easeOut' });
+
+      // Scroll-reveal helper: fades each element in when it enters the viewport
+      function revealOnScroll(selector: string) {
+        const els = Array.from(document.querySelectorAll<HTMLElement>(selector));
+        els.forEach(el => { el.style.opacity = '0'; });
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            animate(entry.target as HTMLElement, { opacity: [0, 1], y: [12, 0] }, { duration: 0.4, ease: 'easeOut' });
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.1 });
+        els.forEach(el => observer.observe(el));
+      }
+
+      revealOnScroll('#skills-grid > *');
+      revealOnScroll('#exp-list > *');
+      revealOnScroll('#featured-grid > *');
+    }
+
+    // ── Experience filter ──────────────────────────────────────────────
     const expFilterBtns = document.querySelectorAll<HTMLButtonElement>('[data-exp-filter]');
     expFilterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -277,18 +324,48 @@ const jsonLd = JSON.stringify({
       });
     });
 
-    // Expand / collapse
+    // ── Expand / collapse ──────────────────────────────────────────────
+    // The toggle button handles keyboard users; a click anywhere else on the card works too.
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
+      const btn = card.querySelector<HTMLButtonElement>('.expand-toggle');
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;
-        card.classList.toggle('expanded');
+        const expanded = card.classList.toggle('expanded');
+        btn?.setAttribute('aria-expanded', String(expanded));
+        if (btn) btn.setAttribute('aria-label', btn.getAttribute('aria-label')!.replace(/^(Show|Hide)/, expanded ? 'Hide' : 'Show'));
       });
     });
   </script>
 
   <style>
+    .hero-top { display: grid; gap: 28px; align-items: end; }
+    .hero-portrait { margin: 0; order: -1; width: 128px; }
+    .hero-portrait img {
+      display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+      border-radius: 14px; border: 1px solid #1f1f1f;
+    }
+    @media (min-width: 768px) {
+      .hero-top { grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; }
+      .hero-portrait { order: 0; width: 100%; }
+      .hero-portrait img { border-radius: 18px; }
+    }
     .channel-pill:hover { background: #1a1a1a; border-color: #3a3a3a; }
     .see-all-link:hover { text-decoration: underline; }
+    .ideas-teaser {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding: 14px 20px;
+      border: 1px dashed #2e2e2e;
+      border-radius: 12px;
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+      color: #a3a3a3;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .ideas-teaser:hover { border-color: #1D9E75; color: #f0f0f0; }
     .website-link:hover {
       border-color: #1D9E75 !important;
       background: rgba(29,158,117,0.04);

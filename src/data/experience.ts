@@ -4,6 +4,8 @@ export interface Experience {
   role: string
   title: string
   tenure: string
+  /** For the current role: start month (YYYY-MM); tenure is then computed at build time. */
+  start?: string
   scale: string
   stack: string[]
   highlights: string[]
@@ -15,7 +17,8 @@ export const experiences: Experience[] = [
     domainLabel: "Fintech / Trading",
     role: "Senior Android Engineer",
     title: "High-scale retail trading platform",
-    tenure: "Nov 2022 – Present · 2+ yrs",
+    tenure: "Nov 2022 – Present",
+    start: "2022-11",
     scale: "80M users · 4M+ DAU · ~99.7% crash-free rate",
     stack: ["Kotlin", "Jetpack Compose", "KMM", "Room DB", "Dagger/Hilt", "Coroutines", "Crashlytics", "Mixpanel", "A/B Testing"],
     highlights: [
@@ -72,3 +75,14 @@ export const experiences: Experience[] = [
     ]
   }
 ]
+
+/** "Nov 2022 – Present · 4 yrs" for a current role, the stored text otherwise. */
+export function tenureLabel(exp: Experience, now = new Date()): string {
+  if (!exp.start) return exp.tenure
+  const [y, m] = exp.start.split('-').map(Number)
+  const months = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m)
+  const years = Math.floor(months / 12)
+  const rest = months % 12
+  const span = years < 1 ? `${months} mos` : `${years}${rest ? '+' : ''} yr${years === 1 && !rest ? '' : 's'}`
+  return `${exp.tenure} · ${span}`
+}
