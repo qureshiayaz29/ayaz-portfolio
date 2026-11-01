@@ -29,12 +29,15 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={SITE_URL + canonical} />
-    <meta property="og:image" content={SITE_URL + '/og-image.svg'} />
+    <meta property="og:image" content={SITE_URL + '/og-image.jpg'} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ayaz Qureshi, senior Android engineer and indie builder" />
     <meta property="og:site_name" content="Ayaz Qureshi" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={SITE_URL + '/og-image.svg'} />
+    <meta name="twitter:image" content={SITE_URL + '/og-image.jpg'} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -202,8 +205,14 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
           ctx.fill();
         }
 
-        requestAnimationFrame(tick);
+        if (!reduceMotion.matches && !document.hidden) requestAnimationFrame(tick);
       }
+
+      // Respect reduced motion: draw one still frame instead of animating.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      reduceMotion.addEventListener('change', () => { if (!reduceMotion.matches) tick(); });
+      // Stop the loop in background tabs and restart it when the tab is visible again.
+      document.addEventListener('visibilitychange', () => { if (!document.hidden && !reduceMotion.matches) tick(); });
 
       tick();
     </script>

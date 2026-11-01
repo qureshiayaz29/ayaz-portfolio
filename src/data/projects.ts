@@ -10,11 +10,16 @@ export interface Project {
     stack: string
     next?: string
     link?: string
+    /** Card image, 16:10 (1280x800), under public/ */
+    image?: string
+    imageAlt?: string
 }
 
 export const projects: Project[] = [
     {
         name: "JSON parser and developer toolkit",
+        image: "/images/projects/parse-json-online.webp",
+        imageAlt: "Parse JSON Online cover",
         cat: "dev-tools",
         catLabel: "Developer Tools",
         status: "live",
@@ -26,6 +31,8 @@ export const projects: Project[] = [
     },
     {
         name: "StoreRating Bot",
+        image: "/images/projects/storerating-bot.webp",
+        imageAlt: "StoreRating Bot in Telegram, showing a rating report for Instagram with top complaints",
         cat: "ai",
         catLabel: "AI + Automation",
         status: "live",
@@ -36,6 +43,8 @@ export const projects: Project[] = [
     },
     {
         name: "Mood Reactions",
+        image: "/images/projects/mood-reactions.webp",
+        imageAlt: "Mood Reactions popping up a \"Paisa gaya. Worth it though.\" reaction on an order confirmation page",
         cat: "consumer",
         catLabel: "Consumer Apps",
         status: "live",
@@ -46,6 +55,8 @@ export const projects: Project[] = [
     },
     {
         name: "Tez Billing",
+        image: "/images/projects/tez-billing.webp",
+        imageAlt: "Tez Billing cover",
         cat: "consumer",
         catLabel: "Consumer Apps",
         status: "live",

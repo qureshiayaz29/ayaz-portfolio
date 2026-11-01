@@ -4,7 +4,7 @@ import Nav from '../components/Nav.astro';
 import SkillGroup from '../components/SkillGroup.astro';
 import ExpCard from '../components/ExpCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { experiences } from '../data/experience';
+import { experiences, tenureLabel } from '../data/experience';
 import { projects } from '../data/projects';
 import { SITE_URL } from '../site.config.mjs';
 
@@ -129,23 +129,33 @@ const jsonLd = JSON.stringify({
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
     <section id="hero" class="pt-16 pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#525252;">
-        Ayaz Qureshi — Bangalore, India
-      </p>
+      <div class="hero-top">
+        <div class="hero-intro">
+          <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a;">
+            Ayaz Qureshi — Bangalore, India
+          </p>
 
-      <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.8rem,7vw,4.5rem); line-height:1.05; color:#f0f0f0; margin-top:14px;">
-        Builder.<br />
-        <em style="font-style:italic; color:#1D9E75;">Indie Developer.</em>
-      </h1>
+          <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.8rem,7vw,4.5rem); line-height:1.05; color:#f0f0f0; margin-top:14px;">
+            Builder.<br />
+            <em style="font-style:italic; color:#1D9E75;">Indie Developer.</em>
+          </h1>
 
-      <p style="font-family:'Geist',sans-serif; font-size:16px; color:#737373; max-width:52ch; line-height:1.75; margin-top:22px;">
-        I ship products end-to-end — from architecture and system design to delightful UIs.
-        Mobile-first, but increasingly building for web, AI, and automation. Currently working
-        on a handful of tools and platforms in parallel.
-      </p>
+          <p style="font-family:'Geist',sans-serif; font-size:16px; color:#9c9c9c; max-width:52ch; line-height:1.75; margin-top:22px;">
+            I ship products end-to-end — from architecture and system design to delightful UIs.
+            Mobile-first, but increasingly building for web, AI, and automation. Currently working
+            on a handful of tools and platforms in parallel.
+          </p>
+        </div>
+        <figure class="hero-portrait">
+          <picture>
+            <source srcset="/images/ayaz-portrait.webp" type="image/webp" />
+            <img src="/images/ayaz-portrait.jpg" alt="Ayaz Qureshi working on a laptop" width="800" height="1000" fetchpriority="high" decoding="async" />
+          </picture>
+        </figure>
+      </div>
 
       <!-- Find me on -->
-      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#525252; margin-top:28px; margin-bottom:10px;">
+      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a; margin-top:28px; margin-bottom:10px;">
         Find me on
       </p>
       <div class="flex flex-wrap gap-2">
@@ -161,7 +171,7 @@ const jsonLd = JSON.stringify({
       </div>
 
       <!-- Things I've built -->
-      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#525252; margin-top:24px; margin-bottom:10px;">
+      <p style="font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a; margin-top:24px; margin-bottom:10px;">
         Things I've built
       </p>
       <div class="flex flex-wrap gap-3">
@@ -174,7 +184,7 @@ const jsonLd = JSON.stringify({
             style="border:1px solid #2e2e2e; border-radius:10px; padding:11px 16px; text-decoration:none; display:flex; flex-direction:column; gap:3px; min-width:150px;"
           >
             <span style="font-family:'Geist',sans-serif; font-size:14px; font-weight:500; color:#d4d4d4;">{w.name}</span>
-            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#525252;">{w.domain}{w.url.startsWith('http') ? ' ↗' : ' →'}</span>
+            <span style="font-family:'DM Mono',monospace; font-size:11px; color:#8a8a8a;">{w.domain}{w.url.startsWith('http') ? ' ↗' : ' →'}</span>
           </a>
         ))}
       </div>
@@ -182,9 +192,9 @@ const jsonLd = JSON.stringify({
 
     <!-- ── Skills ────────────────────────────────────────────────────── -->
     <section class="pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252; margin-bottom:20px;">
+      <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a; margin-bottom:20px;">
         Skills &amp; expertise
-      </p>
+      </h2>
       <div id="skills-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;">
         {skillGroups.map(sg => (
           <SkillGroup
@@ -201,9 +211,9 @@ const jsonLd = JSON.stringify({
 
     <!-- ── Experience ────────────────────────────────────────────────── -->
     <section class="pb-16">
-      <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252; margin-bottom:16px;">
+      <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a; margin-bottom:16px;">
         Professional work
-      </p>
+      </h2>
 
       <!-- Filter tabs -->
       <div class="flex flex-wrap gap-2 mb-5">
@@ -221,7 +231,7 @@ const jsonLd = JSON.stringify({
             domainLabel={exp.domainLabel}
             role={exp.role}
             title={exp.title}
-            tenure={exp.tenure}
+            tenure={tenureLabel(exp)}
             scale={exp.scale}
             stack={exp.stack}
             highlights={exp.highlights}
@@ -233,9 +243,9 @@ const jsonLd = JSON.stringify({
     <!-- ── Featured Projects ─────────────────────────────────────────── -->
     <section class="pb-20">
       <div class="flex items-center justify-between mb-5">
-        <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#525252;">
+        <h2 style="font-weight:400; font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:#8a8a8a;">
           Shipped projects
-        </p>
+        </h2>
         <a
           href="/projects"
           class="see-all-link"
@@ -255,6 +265,8 @@ const jsonLd = JSON.stringify({
             stack={p.stack}
             next={p.next}
             link={p.link}
+            image={p.image}
+            imageAlt={p.imageAlt}
             featured={true}
           />
         ))}
@@ -277,7 +289,7 @@ const jsonLd = JSON.stringify({
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
       // Hero: stagger all direct children in on load
-      const heroEls = Array.from(document.querySelectorAll<HTMLElement>('#hero > *'));
+      const heroEls = Array.from(document.querySelectorAll<HTMLElement>('#hero .hero-intro > *, #hero .hero-portrait, #hero > :not(.hero-top)'));
       heroEls.forEach(el => { el.style.opacity = '0'; });
       animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { delay: stagger(0.07), duration: 0.55, ease: 'easeOut' });
 
@@ -313,26 +325,30 @@ const jsonLd = JSON.stringify({
     });
 
     // ── Expand / collapse ──────────────────────────────────────────────
+    // The toggle button handles keyboard users; a click anywhere else on the card works too.
     document.querySelectorAll<HTMLElement>('.expandable-card').forEach(card => {
-      const toggle = () => {
-        const expanded = card.classList.toggle('expanded');
-        card.setAttribute('aria-expanded', String(expanded));
-      };
+      const btn = card.querySelector<HTMLButtonElement>('.expand-toggle');
       card.addEventListener('click', e => {
         if ((e.target as Element).closest('a')) return;
-        toggle();
-      });
-      card.addEventListener('keydown', e => {
-        if (e.target !== card) return;
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle();
-        }
+        const expanded = card.classList.toggle('expanded');
+        btn?.setAttribute('aria-expanded', String(expanded));
+        if (btn) btn.setAttribute('aria-label', btn.getAttribute('aria-label')!.replace(/^(Show|Hide)/, expanded ? 'Hide' : 'Show'));
       });
     });
   </script>
 
   <style>
+    .hero-top { display: grid; gap: 28px; align-items: end; }
+    .hero-portrait { margin: 0; order: -1; width: 128px; }
+    .hero-portrait img {
+      display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+      border-radius: 14px; border: 1px solid #1f1f1f;
+    }
+    @media (min-width: 768px) {
+      .hero-top { grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; }
+      .hero-portrait { order: 0; width: 100%; }
+      .hero-portrait img { border-radius: 18px; }
+    }
     .channel-pill:hover { background: #1a1a1a; border-color: #3a3a3a; }
     .see-all-link:hover { text-decoration: underline; }
     .ideas-teaser {

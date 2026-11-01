@@ -107,12 +107,12 @@ const faqs = [
         <li>Use on up to {MR.activations} browsers</li>
         <li>Turn it off for any site, choose how long reactions stay</li>
         <li>Taxes included. Renews yearly, cancel any time</li>
-        <li>{MR.refundBadge} money-back guarantee. <a href="/mood-reactions/refund">Refund policy</a></li>
+        <li>{MR.refundBadge} money-back guarantee. <a href="/mood-reactions/refund" style="text-decoration:underline; text-underline-offset:3px;">Refund policy</a></li>
       </ul>
       {MR.checkoutUrl ? (
         <a class="mr-btn mr-btn-primary mt-6" href={MR.checkoutUrl} target="_blank" rel="noopener">Buy license</a>
       ) : (
-        <p class="mr-note mt-6">Licenses go on sale when the extension launches on the Chrome Web Store.</p>
+        <p class="mr-note mt-6">License checkout is opening soon. Want one now? Email <a href={`mailto:${MR.supportEmail}`}>{MR.supportEmail}</a>.</p>
       )}
     </div>
   </section>
@@ -145,7 +145,8 @@ const faqs = [
   .mr-h2 { font-family: 'Instrument Serif', serif; font-size: 32px; line-height: 1.1; color: #f0f0f0; font-weight: 400; }
   .mr-body { font-family: 'Geist', sans-serif; font-size: 16px; line-height: 1.7; color: #d4d4d4; }
   .mr-body code { font-family: 'DM Mono', monospace; font-size: 13px; background: #1f1f1f; padding: 2px 6px; border-radius: 6px; color: #f0f0f0; }
-  .mr-note { font-family: 'Geist', sans-serif; font-size: 14px; color: #737373; }
+  .mr-note { font-family: 'Geist', sans-serif; font-size: 14px; color: #9c9c9c; }
+  .mr-note a { color: #1D9E75; text-decoration: underline; text-underline-offset: 3px; }
   .mr-link { font-family: 'Geist', sans-serif; font-size: 14px; color: #1D9E75; text-underline-offset: 3px; }
   .mr-btn { display: inline-block; font-family: 'Geist', sans-serif; font-weight: 500; font-size: 15px; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
   .mr-btn-primary { background: #1D9E75; color: #04130e; }
@@ -155,7 +156,7 @@ const faqs = [
   .mr-demo { border: 1px solid #242424; border-radius: 16px; overflow: hidden; background: #111; box-shadow: 0 24px 60px rgba(0,0,0,.4); }
   .mr-demo-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid #1f1f1f; background: #161616; }
   .mr-demo-bar span { width: 9px; height: 9px; border-radius: 50%; background: #333; }
-  .mr-demo-bar em { font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; color: #525252; margin-left: 8px; }
+  .mr-demo-bar em { font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; color: #8a8a8a; margin-left: 8px; }
   .mr-demo-body { position: relative; height: 230px; padding: 22px; }
   .mr-demo-line { height: 10px; border-radius: 6px; background: #1f1f1f; margin-bottom: 12px; }
   .mr-demo-toast { position: absolute; left: 22px; bottom: 22px; font-family: 'Geist', sans-serif; font-size: 13px; color: #d4d4d4; background: #161616; border: 1px solid #242424; border-radius: 10px; padding: 8px 12px; }
@@ -168,7 +169,7 @@ const faqs = [
   .mr-card { border: 1px solid #242424; background: #161616; border-radius: 14px; padding: 16px; border-left: 3px solid var(--a); }
   .mr-emoji { font-size: 28px; line-height: 1; }
   .mr-card-title { font-family: 'Geist', sans-serif; font-weight: 500; font-size: 15px; color: #f0f0f0; }
-  .mr-card-cap { font-family: 'Geist', sans-serif; font-size: 13px; color: #737373; }
+  .mr-card-cap { font-family: 'Geist', sans-serif; font-size: 13px; color: #9c9c9c; }
   .mr-card-when { font-family: 'Geist', sans-serif; font-size: 13px; color: #a3a3a3; margin-top: 10px; line-height: 1.5; }
 
   .mr-steps { counter-reset: s; list-style: none; padding: 0; }
@@ -178,7 +179,7 @@ const faqs = [
 
   .mr-price { border: 1px solid #242424; background: #161616; border-radius: 18px; padding: 24px; }
   .mr-amount { font-family: 'Instrument Serif', serif; font-size: 44px; color: #f0f0f0; line-height: 1; }
-  .mr-per { font-family: 'Geist', sans-serif; font-size: 14px; color: #737373; margin-left: 6px; }
+  .mr-per { font-family: 'Geist', sans-serif; font-size: 14px; color: #9c9c9c; margin-left: 6px; }
   .mr-included { margin-top: 18px; padding: 0; list-style: none; }
   .mr-included li { font-family: 'Geist', sans-serif; font-size: 15px; color: #d4d4d4; padding: 6px 0 6px 24px; position: relative; }
   .mr-included li::before { content: '✓'; position: absolute; left: 0; color: #1D9E75; }
