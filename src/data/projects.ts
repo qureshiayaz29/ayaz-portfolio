@@ -19,7 +19,7 @@ export const projects: Project[] = [
     {
         name: "JSON parser and developer toolkit",
         image: "/images/projects/parse-json-online.webp",
-        imageAlt: "Parse JSON Online cover",
+        imageAlt: "JSON formatter turning a minified JSON string into indented, highlighted output",
         cat: "dev-tools",
         catLabel: "Developer Tools",
         status: "live",
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     {
         name: "Tez Billing",
         image: "/images/projects/tez-billing.webp",
-        imageAlt: "Tez Billing cover",
+        imageAlt: "Sample Tez Billing invoice with line items, GST and a rupee total",
         cat: "consumer",
         catLabel: "Consumer Apps",
         status: "live",
