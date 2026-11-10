@@ -2,6 +2,7 @@ import { SITE_URL } from '../site.config.mjs';
 
 const PAGES = [
   { path: '/', changefreq: 'monthly', priority: '1.0' },
+  { path: '/projects', changefreq: 'monthly', priority: '0.9' },
   { path: '/mood-reactions', changefreq: 'monthly', priority: '0.8' },
   { path: '/mood-reactions/privacy', changefreq: 'yearly', priority: '0.3' },
   { path: '/mood-reactions/terms', changefreq: 'yearly', priority: '0.3' },

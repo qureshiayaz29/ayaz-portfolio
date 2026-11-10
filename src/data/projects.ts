@@ -1,4 +1,4 @@
-export type ProjectStatus = 'live' | 'progress' | 'idea'
+export type ProjectStatus = 'live' | 'progress' | 'experiment' | 'idea'
 
 export interface Project {
     name: string
@@ -10,11 +10,16 @@ export interface Project {
     stack: string
     next?: string
     link?: string
+    /** Card image, 16:10 (1280x800), under public/ */
+    image?: string
+    imageAlt?: string
 }
 
 export const projects: Project[] = [
     {
         name: "JSON parser and developer toolkit",
+        image: "/images/projects/parse-json-online.webp",
+        imageAlt: "JSON formatter turning a minified JSON string into indented, highlighted output",
         cat: "dev-tools",
         catLabel: "Developer Tools",
         status: "live",
@@ -25,7 +30,33 @@ export const projects: Project[] = [
         link: "https://parsejsononline.com"
     },
     {
+        name: "StoreRating Bot",
+        image: "/images/projects/storerating-bot.webp",
+        imageAlt: "StoreRating Bot in Telegram, showing a rating report for Instagram with top complaints",
+        cat: "ai",
+        catLabel: "AI + Automation",
+        status: "live",
+        desc: "Telegram bot that watches Google Play and App Store apps: rating moves, releases, top complaints and 1★ spikes. Free.",
+        what: "Follow any app and get alerts in Telegram when its rating shifts, a new version ships, complaints cluster, or 1★ reviews spike.",
+        stack: "Telegram Bot · Google Play · App Store",
+        link: "https://t.me/StoreRatingbot"
+    },
+    {
+        name: "Mood Reactions",
+        image: "/images/projects/mood-reactions.webp",
+        imageAlt: "Mood Reactions popping up a \"Paisa gaya. Worth it though.\" reaction on an order confirmation page",
+        cat: "consumer",
+        catLabel: "Consumer Apps",
+        status: "live",
+        desc: "Chrome extension that pops up a reaction GIF when a payment goes through, a login fails, or a site breaks.",
+        what: "Detects moments like payment success, login failures and error pages from what the page says, entirely in the browser. Paid product with yearly licenses.",
+        stack: "Chrome Extension · Dodo Payments",
+        link: "/mood-reactions"
+    },
+    {
         name: "Tez Billing",
+        image: "/images/projects/tez-billing.webp",
+        imageAlt: "Sample Tez Billing invoice with line items, GST and a rupee total",
         cat: "consumer",
         catLabel: "Consumer Apps",
         status: "live",
@@ -34,32 +65,29 @@ export const projects: Project[] = [
         stack: "Web · Firebase",
         link: "https://tezbilling.com"
     },
-
     {
         name: "Meal Recommendation Engine",
         cat: "ai",
         catLabel: "AI + Automation",
-        status: "live",
-        desc: "AI-powered meal recommendation system. Phase 2 live — built for personal usage.",
+        status: "experiment",
+        desc: "AI-powered meal recommendation system, built for personal use.",
         what: "Personalised meal suggestions based on preferences and dietary constraints. Personal project.",
         stack: "AI APIs · Web"
     },
-
     {
         name: "Resume Tailoring Bot",
         cat: "ai",
         catLabel: "AI + Automation",
-        status: "live",
+        status: "experiment",
         desc: "Telegram bot that tailors resumes to specific job descriptions using AI.",
         what: "Paste a JD, get a tailored resume. Built with Python, OpenAI APIs, Telegram API, Reportlab. Deployed on Fly.io.",
-        stack: "Python · OpenAI · Telegram API · Fly.io",
-        link: "https://t.me/ResumeFitBot"
+        stack: "Python · OpenAI · Telegram API · Fly.io"
     },
     {
         name: "NIFTY Options Trading Bot",
         cat: "ai",
         catLabel: "AI + Automation",
-        status: "progress",
+        status: "idea",
         desc: "Algorithmic trading bot for NIFTY options with backtesting. Paper trading dev done, not yet validated.",
         what: "Algo-driven options strategy execution with a full backtesting suite. Deployed on DigitalOcean.",
         stack: "Python · DigitalOcean",
@@ -67,23 +95,13 @@ export const projects: Project[] = [
     },
     {
         name: "Non-Custodial Crypto Payments",
-        cat: "ai",
-        catLabel: "AI + Automation",
-        status: "progress",
+        cat: "startup",
+        catLabel: "Startup Ideas",
+        status: "idea",
         desc: "UPI-style crypto payment platform. Non-custodial, privacy-first.",
         what: "Decentralised payment flows using Transak SDK and Firebase. No custody of user funds.",
         stack: "Firebase · Transak SDK",
-        next: "Active development"
-    },
-    {
-        name: "Bug Reproduction Tool",
-        cat: "dev-tools",
-        catLabel: "Developer Tools",
-        status: "idea",
-        desc: "A tool to help developers reproduce and document bugs consistently.",
-        what: "Structured bug capture and reproduction steps — reduces back-and-forth between QA and devs.",
-        stack: "TBD",
-        next: "Figuring out scope"
+        next: "On hold"
     },
     {
         name: "Bachpan Radio",
@@ -106,12 +124,12 @@ export const projects: Project[] = [
         next: "Market research first"
     },
     {
-        name: "Android Bug Automation Tool",
-        cat: "startup",
-        catLabel: "Startup Ideas",
+        name: "Android Bug Reproduction Tool",
+        cat: "dev-tools",
+        catLabel: "Developer Tools",
         status: "idea",
-        desc: "Automate Android bug reproduction — a B2B tool for QA and dev teams.",
-        what: "Record, reproduce, and document Android bugs automatically. Strong B2B potential.",
+        desc: "Record, reproduce and document Android bugs automatically. A B2B tool for QA and dev teams.",
+        what: "Structured bug capture with automatic reproduction steps, cutting the back-and-forth between QA and developers.",
         stack: "TBD",
         next: "Scoping and validation"
     }

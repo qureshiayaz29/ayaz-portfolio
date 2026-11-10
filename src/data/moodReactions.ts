@@ -3,7 +3,7 @@ export const MR = {
   name: 'Mood Reactions',
   tagline: 'Your browser, now with feelings.',
   // Fill these in at launch. While empty, the page shows "coming soon" instead of the buttons.
-  chromeStoreUrl: '', // Chrome Web Store listing URL, after approval
+  chromeStoreUrl: 'https://chromewebstore.google.com/detail/mood-reactions/blbmobogbfmhbiojadggpphbkiffleaa', // Chrome Web Store listing URL, after approval
   checkoutUrl: '', // Dodo Payments LIVE checkout link, after Dodo approval
   priceIndia: '₹299',
   priceIntl: '$9.99',
