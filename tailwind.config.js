@@ -12,15 +12,15 @@ export default {
           alt: '#F5F7FF'
         },
         offwhite: { DEFAULT: '#FAFAF7' },
-        accent: { DEFAULT: '#1D9E75' }
+        accent: { DEFAULT: '#FFB020' }
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         nunito: ['Nunito', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
-        geist: ['Geist', 'sans-serif'],
-        'dm-mono': ['"DM Mono"', 'monospace'],
-        instrument: ['"Instrument Serif"', 'serif']
+        geist: ['IBM Plex Sans', 'sans-serif'],
+        'dm-mono': ['"JetBrains Mono"', 'monospace'],
+        instrument: ['"JetBrains Mono"', 'monospace']
       },
       boxShadow: {
         soft: '0 4px 12px rgba(0,0,0,0.08)'

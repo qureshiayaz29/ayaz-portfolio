@@ -16,37 +16,37 @@ const { domain, domainLabel, role, title, tenure, scale, stack, highlights } = A
 <div
   class="exp-card expandable-card"
   data-domain={domain}
-  style="border:1px solid #242424; border-radius:12px; padding:20px; background:#161616; cursor:pointer; transition:border-color 0.15s;"
-  onmouseover="this.style.borderColor='#333'"
-  onmouseout="this.style.borderColor='#242424'"
+  style="border:1px solid #2B303A; border-radius:12px; padding:20px; background:#1B1E25; cursor:pointer; transition:border-color 0.15s;"
+  onmouseover="this.style.borderColor='#3A4150'"
+  onmouseout="this.style.borderColor='#2B303A'"
 >
   <div class="flex items-start justify-between gap-3">
     <div style="flex:1; min-width:0;">
-      <p style="font-family:'Geist',sans-serif; font-size:15px; font-weight:500; color:#f0f0f0; margin:0;">{role}</p>
+      <p style="font-family:'IBM Plex Sans',sans-serif; font-size:15px; font-weight:500; color:#E4E8EE; margin:0;">{role}</p>
       <div class="flex items-center gap-2 flex-wrap mt-2">
-        <span style="font-family:'DM Mono',monospace; font-size:11px; background:#1f1f1f; color:#a3a3a3; padding:3px 9px; border-radius:4px;">{domainLabel}</span>
-        <span style="font-family:'DM Mono',monospace; font-size:12px; color:#8a8a8a;">{tenure}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; background:#22262E; color:#A9B1BE; padding:3px 9px; border-radius:4px;">{domainLabel}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#8B94A3;">{tenure}</span>
       </div>
-      <p style="font-family:'Geist',sans-serif; font-size:14px; color:#9c9c9c; margin-top:10px;">
-        {title} <span style="color:#8a8a8a;">— {scale}</span>
+      <p style="font-family:'IBM Plex Sans',sans-serif; font-size:14px; color:#9AA3B2; margin-top:10px;">
+        {title} <span style="color:#8B94A3;">— {scale}</span>
       </p>
     </div>
     <button type="button" class="expand-toggle" aria-expanded="false" aria-label={`Show details: ${role}, ${title}`} style="margin-top:2px;">
       <span class="expand-icon" aria-hidden="true"></span>
     </button>
   </div>
-  <div class="detail" style="margin-top:18px; padding-top:18px; border-top:1px solid #222;">
+  <div class="detail" style="margin-top:18px; padding-top:18px; border-top:1px solid #22262E;">
     <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
       {highlights.map(h => (
-        <li style="display:flex; gap:10px; font-family:'Geist',sans-serif; font-size:14px; color:#a3a3a3; line-height:1.65;">
-          <span style="color:#333; flex-shrink:0; margin-top:2px;">•</span>
+        <li style="display:flex; gap:10px; font-family:'IBM Plex Sans',sans-serif; font-size:14px; color:#A9B1BE; line-height:1.65;">
+          <span style="color:#3A4150; flex-shrink:0; margin-top:2px;">•</span>
           <span>{h}</span>
         </li>
       ))}
     </ul>
     <div class="flex flex-wrap gap-1.5 mt-5">
       {stack.map(tag => (
-        <span style="font-family:'DM Mono',monospace; font-size:12px; background:#1f1f1f; color:#9c9c9c; padding:3px 9px; border-radius:4px;">{tag}</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; background:#22262E; color:#9AA3B2; padding:3px 9px; border-radius:4px;">{tag}</span>
       ))}
     </div>
   </div>

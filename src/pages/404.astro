@@ -12,13 +12,13 @@ import Nav from '../components/Nav.astro';
   <Nav />
 
   <main id="content" class="max-w-3xl mx-auto px-6" style="min-height:70vh; display:flex; flex-direction:column; justify-content:center;">
-    <p style="font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#8a8a8a;">
+    <p style="font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#8B94A3;">
       Error 404
     </p>
-    <h1 style="font-family:'Instrument Serif',serif; font-size:clamp(2.6rem,7vw,4rem); line-height:1.05; color:#f0f0f0; margin-top:14px;">
-      Nothing <em style="font-style:italic; color:#1D9E75;">here.</em>
+    <h1 style="font-family:'JetBrains Mono', monospace; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:800; letter-spacing:-0.045em; line-height:1.08; color:#E4E8EE; margin-top:14px;">
+      Nothing <span style="color:#FFB020;white-space:nowrap;">here.<span class="term-cursor" aria-hidden="true"></span></span>
     </h1>
-    <p style="font-family:'Geist',sans-serif; font-size:16px; color:#9c9c9c; max-width:46ch; line-height:1.75; margin-top:18px;">
+    <p style="font-family:'IBM Plex Sans',sans-serif; font-size:16px; color:#9AA3B2; max-width:46ch; line-height:1.75; margin-top:18px;">
       The page you're looking for doesn't exist or has moved.
     </p>
     <div class="flex flex-wrap gap-3" style="margin-top:28px;">
@@ -29,18 +29,18 @@ import Nav from '../components/Nav.astro';
 
   <style>
     .nf-btn {
-      font-family: 'Geist', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 14px;
       font-weight: 500;
-      border: 1px solid #2e2e2e;
+      border: 1px solid #323845;
       border-radius: 9999px;
       padding: 9px 20px;
-      color: #d4d4d4;
+      color: #C9D0DA;
       text-decoration: none;
       transition: background 0.15s, border-color 0.15s;
     }
-    .nf-btn:hover { background: #1a1a1a; border-color: #3a3a3a; }
-    .nf-btn-primary { background: #1D9E75; border-color: #1D9E75; color: #0c0c0c; }
-    .nf-btn-primary:hover { background: #22b585; border-color: #22b585; }
+    .nf-btn:hover { background: #1E2129; border-color: #3F4757; }
+    .nf-btn-primary { background: #FFB020; border-color: #FFB020; color: #14161B; }
+    .nf-btn-primary:hover { background: #FFC24D; border-color: #FFC24D; }
   </style>
 </Base>
