@@ -6,16 +6,16 @@
   --safe-top: env(safe-area-inset-top, 0);
   --safe-bottom: env(safe-area-inset-bottom, 0);
   /* Dark palette tokens */
-  --bg: #14161B;
-  --bg-card: #1B1E25;
-  --bg-tag: #22262E;
-  --border: #2B303A;
-  --border-hover: #3A4150;
-  --text-primary: #E4E8EE;
-  --text-secondary: #C9D0DA;
-  --text-muted: #9AA3B2;
-  --text-faint: #8B94A3;
-  --accent: #FFB020;
+  --bg: #2B2D31;
+  --bg-card: #33363B;
+  --bg-tag: #383B41;
+  --border: #44474D;
+  --border-hover: #52555B;
+  --text-primary: #ECEDEE;
+  --text-secondary: #D9DADC;
+  --text-muted: #B4B6BA;
+  --text-faint: #9A9CA1;
+  --accent: #FFC93C;
 }
 
 body {
@@ -33,7 +33,7 @@ body {
 
 /* Focus */
 :focus { outline: none; }
-:focus-visible { outline: 2px solid #FFB020; outline-offset: 3px; }
+:focus-visible { outline: 2px solid #FFC93C; outline-offset: 3px; }
 
 /* Legacy utility */
 .section-heading { @apply font-bold; color: var(--text-primary); }
@@ -55,7 +55,7 @@ body {
 .orb-1 {
   width: 600px;
   height: 600px;
-  background: #FFB020;
+  background: #FFC93C;
   opacity: 0.07;
   top: -180px;
   left: -120px;
@@ -64,7 +64,7 @@ body {
 .orb-2 {
   width: 420px;
   height: 420px;
-  background: #FFB020;
+  background: #FFC93C;
   opacity: 0.05;
   bottom: 60px;
   right: -100px;
@@ -73,7 +73,7 @@ body {
 .orb-3 {
   width: 280px;
   height: 280px;
-  background: #7AA2F7;
+  background: #D9DADC;
   opacity: 0.045;
   top: 42%;
   left: 58%;
@@ -111,13 +111,13 @@ body {
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: #8B94A3;
+  color: #9A9CA1;
   font-family: 'JetBrains Mono', monospace;
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
 }
-.expand-toggle:hover { color: #E4E8EE; background: #22262E; }
+.expand-toggle:hover { color: #ECEDEE; background: #383B41; }
 
 /* ── Filter buttons ───────────────────────────────────────────── */
 .filter-btn {
@@ -133,14 +133,14 @@ body {
   white-space: nowrap;
 }
 .filter-btn.active {
-  background: #DDE2EA;
-  color: #14161B;
-  border-color: #DDE2EA;
+  background: #E2E3E5;
+  color: #2B2D31;
+  border-color: #E2E3E5;
 }
 .filter-btn:not(.active):hover {
-  background: #1E2129;
-  color: #A9B1BE;
-  border-color: #3F4757;
+  background: #303338;
+  color: #BDBFC2;
+  border-color: #5A5D63;
 }
 
 /* ── Terminal cursor (hero headings) ──────────────────────────── */

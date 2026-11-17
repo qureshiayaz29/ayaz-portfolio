@@ -18,7 +18,7 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#14161B" />
+    <meta name="theme-color" content="#2B2D31" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href={SITE_URL + canonical} />
@@ -47,7 +47,7 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
       body { height: auto !important; min-height: 100dvh; overflow-y: auto; }
     </style>
   </head>
-  <body style="background:#14161B;">
+  <body style="background:#2B2D31;">
 
     <!-- Ambient glow layer (CSS orbs for depth) -->
     <div class="orb-container" aria-hidden="true">
@@ -68,7 +68,7 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
       <a
         href="#content"
         class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded focus:text-white"
-        style="background:#FFB020"
+        style="background:#FFC93C"
       >Skip to content</a>
       <slot />
     </div>
@@ -89,15 +89,20 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
       resize();
       window.addEventListener('resize', resize);
 
-      // Track mouse
-      window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-      window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-      // Touch support
-      window.addEventListener('touchmove', e => {
-        mouse.x = e.touches[0].clientX;
-        mouse.y = e.touches[0].clientY;
-      }, { passive: true });
-      window.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; });
+      // Pointer tracking. Mouse follows the cursor; a touch lights up on tap or drag
+      // and fades out on release (presence eases toward target each frame).
+      let presence = 0, target = 0;
+      function setPos(x: number, y: number) { mouse.x = x; mouse.y = y; target = 1; }
+      window.addEventListener('mousemove', e => setPos(e.clientX, e.clientY));
+      document.documentElement.addEventListener('mouseleave', () => { target = 0; });
+      window.addEventListener('touchstart', e => setPos(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+      window.addEventListener('touchmove', e => setPos(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+      window.addEventListener('touchend', () => { target = 0; });
+      window.addEventListener('touchcancel', () => { target = 0; });
+
+      // Silver mesh at rest, yellow where the pointer is.
+      const IDLE = '217,218,220';
+      const HOT  = '255,201,60';
 
       const isMobile = window.innerWidth < 768;
       const COUNT    = isMobile ? 38 : 68;
@@ -131,6 +136,9 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
       function tick() {
         ctx.clearRect(0, 0, W, H);
         frame++;
+        presence += (target - presence) * 0.12;
+        if (target === 0 && presence < 0.01) { mouse.x = -9999; mouse.y = -9999; }
+        const k = presence;
 
         // Move particles
         for (const p of pts) {
@@ -153,19 +161,19 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
               d2(pts[j].x, pts[j].y, mouse.x, mouse.y) < MOUSE_R;
 
             const t = 1 - dist / MAX_DIST;
-            const alpha = nearMouse ? t * 0.45 : t * 0.1;
+            const alpha = nearMouse ? t * 0.45 * k + t * 0.1 * (1 - k) : t * 0.1;
 
             ctx.beginPath();
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(255,176,32,${alpha})`;
+            ctx.strokeStyle = `rgba(${nearMouse ? HOT : IDLE},${alpha})`;
             ctx.lineWidth = nearMouse ? 0.9 : 0.5;
             ctx.stroke();
           }
         }
 
         // Mouse-to-nearby lines
-        if (mouse.x > 0) {
+        if (mouse.x > -9000) {
           for (const p of pts) {
             const dist = d2(p.x, p.y, mouse.x, mouse.y);
             if (dist < MOUSE_R) {
@@ -173,7 +181,7 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
               ctx.beginPath();
               ctx.moveTo(mouse.x, mouse.y);
               ctx.lineTo(p.x, p.y);
-              ctx.strokeStyle = `rgba(255,176,32,${t * 0.35})`;
+              ctx.strokeStyle = `rgba(${HOT},${t * 0.35 * k})`;
               ctx.lineWidth = 0.7;
               ctx.stroke();
             }
@@ -185,23 +193,23 @@ const { title, description, canonical = '/', noindex = false } = Astro.props;
           const md = d2(p.x, p.y, mouse.x, mouse.y);
           const nearMouse = md < MOUSE_R;
           const pulse = Math.sin(frame * 0.018 + p.phase) * 0.12 + 0.88;
-          const radius = p.r * (nearMouse ? 2.4 : 1.0) * pulse;
-          const alpha  = nearMouse ? 0.9 : p.baseA * pulse;
+          const radius = p.r * (nearMouse ? 1 + 1.4 * k : 1.0) * pulse;
+          const alpha  = nearMouse ? 0.9 * k + p.baseA * pulse * (1 - k) : p.baseA * pulse;
 
           // Outer glow for mouse-near dots
           if (nearMouse) {
             ctx.beginPath();
             ctx.arc(p.x, p.y, radius * 3.5, 0, Math.PI * 2);
             const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 3.5);
-            grd.addColorStop(0, 'rgba(255,176,32,0.12)');
-            grd.addColorStop(1, 'rgba(255,176,32,0)');
+            grd.addColorStop(0, `rgba(${HOT},${0.12 * k})`);
+            grd.addColorStop(1, `rgba(${HOT},0)`);
             ctx.fillStyle = grd;
             ctx.fill();
           }
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,176,32,${alpha})`;
+          ctx.fillStyle = `rgba(${nearMouse ? HOT : IDLE},${alpha})`;
           ctx.fill();
         }
 

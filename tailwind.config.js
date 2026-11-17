@@ -12,7 +12,7 @@ export default {
           alt: '#F5F7FF'
         },
         offwhite: { DEFAULT: '#FAFAF7' },
-        accent: { DEFAULT: '#FFB020' }
+        accent: { DEFAULT: '#FFC93C' }
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

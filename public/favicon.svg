@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Background: dark rounded square with subtle teal ring -->
-  <rect x="1.5" y="1.5" width="61" height="61" rx="13" fill="#141414" stroke="#1D9E75" stroke-width="2" stroke-opacity="0.4"/>
-  <!-- A in off-white, Q in teal — monospace weight matches site identity -->
+  <!-- Gray rounded square with a faint yellow ring; A in silver, Q in yellow -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="13" fill="#2B2D31" stroke="#FFC93C" stroke-width="2" stroke-opacity="0.4"/>
   <text y="46" font-family="'Courier New', Courier, monospace" font-size="34" font-weight="700">
-    <tspan x="8" fill="#f0f0f0">A</tspan><tspan fill="#1D9E75">Q</tspan>
+    <tspan x="8" fill="#D9DADC">A</tspan><tspan fill="#FFC93C">Q</tspan>
   </text>
 </svg>
